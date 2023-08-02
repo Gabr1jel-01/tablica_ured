@@ -16,7 +16,7 @@ tabView.pack(pady=10, padx=10, fill="both", expand=True)
 
 #ovdje sam dodao dva taba
 tabView.add("Tablica")
-tabView.add("Glavni izbornik")
+tabView.add("Tablica 2")
 
 
 #ovdje sam stavio da tab glavni izbornik bude prvi otvoren kada se pokrene aplikacija
@@ -26,18 +26,10 @@ tabView.set("Tablica")
 #funkcija koja se pokrene kada stisnem + gumb
 
 i = 1
-
-
-
 def add_row():
-    
     global i
-    
     checkbox = ctk.CTkCheckBox(tabView.tab("Tablica"),text=None)
     checkbox.grid(column=0,row=i+1,padx=0,sticky="w")
-    
-    
-    
     
     entry_datum = ctk.CTkEntry(tabView.tab("Tablica"),width=100)
     entry_datum.grid(column=1,row=i+1,padx=0,pady=0,sticky="w")
@@ -54,13 +46,7 @@ def add_row():
     i += 1
     pass
 
-
-
-
-
-
-
-#Labele
+#Labele Tablica
 label_datum = ctk.CTkLabel(tabView.tab("Tablica"),
                            text="Datum",
                            font=("Arial",24))
@@ -80,6 +66,7 @@ label_otkup = ctk.CTkLabel(tabView.tab("Tablica"),
                            text="Potpis sa datumom",
                            font=("Arial",24))
 label_otkup.grid(column=4,row=0,padx=50)
+
 
 
 #entry
