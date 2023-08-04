@@ -21,38 +21,43 @@ tabView.add("Middle Office")
 tabView.add("Back Office")
 
 #ovdje sam stavio da tab glavni izbornik bude prvi otvoren kada se pokrene aplikacija
-tabView.set("Main Office")
+tabView.set("Back Office")
 
-#Fiksni frame
+#region Fiksni Frameovi
+#Fiksni frame Main Office
 fixed_frame_main_office = ctk.CTkFrame(tabView.tab("Main Office"),height=35)
 fixed_frame_main_office.pack(pady=5,padx=5,fill="both")
-
+#fiksni frame Middle Office
 fixed_frame_middle_office = ctk.CTkFrame(tabView.tab("Middle Office"),height=35)
 fixed_frame_middle_office.pack(pady=5,padx=5,fill="both")
-
+#fiksni frame Back Office
 fixed_frame_back_office = ctk.CTkFrame(tabView.tab("Back Office"),height=35)
 fixed_frame_back_office.pack(pady=5,padx=5,fill="both")
+#endregion
 
+#region Scrollable Frameovi
 #Main scrollable frame
 scrollable_frame_Main = ctk.CTkScrollableFrame(tabView.tab("Main Office"))
 scrollable_frame_Main.pack(pady=5, padx=5, fill="both", expand=True)
-
 #Middle scrollable frame
 scrollable_frame_Middle = ctk.CTkScrollableFrame(tabView.tab("Middle Office"))
 scrollable_frame_Middle.pack(pady=5, padx=5, fill="both", expand=True)
-
 #Back scrollable frame
 scrollable_frame_Back = ctk.CTkScrollableFrame(tabView.tab("Back Office"))
 scrollable_frame_Back.pack(pady=5, padx=5, fill="both", expand=True)
+#endregion
 
+#region Liste
 main_add_all_list = []
 middle_add_all_list = []
 back_add_all_list = []
+#endregion
 
+#region Konstante
 i = 1
 j = 1
 k = 1
-
+#endregion
 
 #region FUNKCIJE 
 def main_add_row():
@@ -129,7 +134,57 @@ def middle_delete_row():
         j -= 1
     else:
         tkinter.messagebox.showinfo("Error","Nije moguce izbrisati pocetni red")
+
+def back_add_row():
+    global k
+    
+    back_checkbox = ctk.CTkCheckBox(scrollable_frame_Back,text=None)
+    back_checkbox.grid(column=0,row=k+1,ipadx=0,sticky="w")
+    
+    back_entry_primatelj = ctk.CTkEntry(scrollable_frame_Back,width=105)
+    back_entry_primatelj.grid(column=1,row=k+1,ipadx=0,pady=(5,0),sticky="w")
+
+    back_entry_posiljatelj = ctk.CTkEntry(scrollable_frame_Back,width=105)
+    back_entry_posiljatelj.grid(column=2,row=k+1,ipadx=0,pady=(5,0))
+
+    back_entry_broj_ugovora = ctk.CTkEntry(scrollable_frame_Back,width=145)
+    back_entry_broj_ugovora.grid(column=3,row=k+1,ipadx=0,pady=(5,0))
+
+    back_entry_iznos_potrazivanja = ctk.CTkEntry(scrollable_frame_Back,width=195)
+    back_entry_iznos_potrazivanja.grid(column=4,row=k+1,ipadx=0,pady=(5,0))
+
+    back_entry_iznos_otkupa = ctk.CTkEntry(scrollable_frame_Back,width=140)
+    back_entry_iznos_otkupa.grid(column=5,row=k+1,ipadx=0,pady=(5,0))
+
+    back_entry_broj_fakture = ctk.CTkEntry(scrollable_frame_Back,width=130)
+    back_entry_broj_fakture.grid(column=6,row=k+1,ipadx=0,pady=(5,0))
+
+    back_entry_datum_stavljanja_na_placanje = ctk.CTkEntry(scrollable_frame_Back,width=300)
+    back_entry_datum_stavljanja_na_placanje.grid(column=7,row=k+1,ipadx=0,pady=(5,0))
+
+    back_row_widgets = [back_checkbox,back_entry_primatelj,back_entry_posiljatelj,
+                        back_entry_broj_ugovora,back_entry_iznos_potrazivanja,
+                        back_entry_iznos_otkupa,back_entry_broj_fakture,
+                        back_entry_datum_stavljanja_na_placanje]
+    back_add_all_list.append(back_row_widgets)
+    
+    k += 1
+
+def back_delete_row():
+    global k
+    if back_add_all_list:
+        last_row_widgets = back_add_all_list.pop()  # Remove the last row's widgets from the list
+        for widget in last_row_widgets:
+            widget.destroy()  # Destroy each widget in the row
+        k -= 1
+    else:
+        tkinter.messagebox.showinfo("Error","Nije moguce izbrisati pocetni red")
+    
 #endregion
+
+
+
+
 
 #region Labele Main Office
 main_label_datum = ctk.CTkLabel(fixed_frame_main_office,
@@ -167,6 +222,12 @@ main_entry_datumipotpis = ctk.CTkEntry(scrollable_frame_Main,width=310)
 main_entry_datumipotpis.grid(column=4,row=1,padx=0,pady=(5,0))
 #endregion
 
+#region Checkbox Main Office
+#checkbox Main Office
+main_checkbox = ctk.CTkCheckBox(scrollable_frame_Main,text=None)
+main_checkbox.grid(column=0,row=1,padx=0,sticky="w")
+#endregion
+
 #region gumb za dodavanje/oduzimanje reda Main Office
 main_button_add_row = ctk.CTkButton(fixed_frame_main_office,text="+",
                                width=10,
@@ -184,20 +245,6 @@ main_button_delete_row.grid(column=0,row=0,padx=40)
 
 
 
-#region gumb za dodavanje/oduzimanje reda Middle Office
-middle_button_add_row = ctk.CTkButton(fixed_frame_middle_office,text="+",
-                               width=10,
-                               corner_radius=120,
-                               anchor="w",
-                               command=middle_add_row)
-middle_button_add_row.grid(column=0,row=0,sticky="w")
-
-middle_button_delete_row = ctk.CTkButton(fixed_frame_middle_office,text="-",
-                               width=30,
-                               corner_radius=120,
-                               command=middle_delete_row)
-middle_button_delete_row.grid(column=0,row=0,padx=40)
-#endregion
 
 #region Label Middle office
 
@@ -250,36 +297,115 @@ checkbox = ctk.CTkCheckBox(scrollable_frame_Middle,text=None)
 checkbox.grid(column=0,row=1,padx=0,sticky="w")
 #endregion
 
+#region gumb za dodavanje/oduzimanje reda Middle Office
+middle_button_add_row = ctk.CTkButton(fixed_frame_middle_office,text="+",
+                               width=10,
+                               corner_radius=120,
+                               anchor="w",
+                               command=middle_add_row)
+middle_button_add_row.grid(column=0,row=0,sticky="w")
+
+middle_button_delete_row = ctk.CTkButton(fixed_frame_middle_office,text="-",
+                               width=30,
+                               corner_radius=120,
+                               command=middle_delete_row)
+middle_button_delete_row.grid(column=0,row=0,padx=40)
+#endregion
 
 
 
 
-"""
+
+
+
+#region Label Back Office
+back_label_primatelj = ctk.CTkLabel(fixed_frame_back_office,
+                           text="Primatelj",
+                           font=("Arial",24))
+back_label_primatelj.grid(column=1,row=0,padx=5)
+
+back_label_posiljatelj = ctk.CTkLabel(fixed_frame_back_office,
+                           text="Posiljatelj",
+                           font=("Arial",24))
+back_label_posiljatelj.grid(column=2,row=0,ipadx=5)
+
+back_label_broj_ugovora = ctk.CTkLabel(fixed_frame_back_office,
+                           text="Broj ugovora",
+                           font=("Arial",24))
+back_label_broj_ugovora.grid(column=3,row=0,ipadx=5)
+
+back_label_iznos_potrazivanja = ctk.CTkLabel(fixed_frame_back_office,
+                           text="Iznos potrazivanja",
+                           font=("Arial",24))
+back_label_iznos_potrazivanja.grid(column=4,row=0,ipadx=5)
+
+back_label_iznos_otkupa = ctk.CTkLabel(fixed_frame_back_office,
+                           text="Iznos otkupa",
+                           font=("Arial",24))
+back_label_iznos_otkupa.grid(column=5,row=0,ipadx=5)
+
+back_label_broj_fakture = ctk.CTkLabel(fixed_frame_back_office,
+                           text="Broj fakture",
+                           font=("Arial",24))
+back_label_broj_fakture.grid(column=6,row=0,ipadx=5)
+
+back_label_datum_stavljanja_na_placanje = ctk.CTkLabel(fixed_frame_back_office,
+                                            text="Datum stavljanja na placanje",
+                                            font=("Arial",24))
+back_label_datum_stavljanja_na_placanje.grid(column=7,row=0,ipadx=5)
+#endregion
+
+#region Entry Back Office
+
+back_entry_primatelj = ctk.CTkEntry(scrollable_frame_Back,width=105)
+back_entry_primatelj.grid(column=1,row=1,ipadx=0,pady=(5,0),sticky="w")
+
+back_entry_posiljatelj = ctk.CTkEntry(scrollable_frame_Back,width=105)
+back_entry_posiljatelj.grid(column=2,row=1,ipadx=0,pady=(5,0))
+
+back_entry_broj_ugovora = ctk.CTkEntry(scrollable_frame_Back,width=145)
+back_entry_broj_ugovora.grid(column=3,row=1,ipadx=0,pady=(5,0))
+
+back_entry_iznos_potrazivanja = ctk.CTkEntry(scrollable_frame_Back,width=195)
+back_entry_iznos_potrazivanja.grid(column=4,row=1,ipadx=0,pady=(5,0))
+
+back_entry_iznos_otkupa = ctk.CTkEntry(scrollable_frame_Back,width=140)
+back_entry_iznos_otkupa.grid(column=5,row=1,ipadx=0,pady=(5,0))
+
+back_entry_broj_fakture = ctk.CTkEntry(scrollable_frame_Back,width=130)
+back_entry_broj_fakture.grid(column=6,row=1,ipadx=0,pady=(5,0))
+
+back_entry_datum_stavljanja_na_placanje = ctk.CTkEntry(scrollable_frame_Back,width=300)
+back_entry_datum_stavljanja_na_placanje.grid(column=7,row=1,ipadx=0,pady=(5,0))
+
+#endregion
+
+#region Checkbox Back Office
+
+back_checkbox = ctk.CTkCheckBox(scrollable_frame_Back,text=None)
+back_checkbox.grid(column=0,row=1,ipadx=0,sticky="w")
+#endregion
+
 #region gumb za dodavanje reda Back Office
 button_add_row = ctk.CTkButton(fixed_frame_back_office,text="+",
                                width=10,
                                corner_radius=120,
                                anchor="w",
-                               command=add_row)
-button_add_row.grid(column=0,row=0,sticky="w")
+                               command=back_add_row)
+button_add_row.grid(column=0,row=0,sticky="w",ipadx=0)
 
 button_delete_row = ctk.CTkButton(fixed_frame_back_office,text="-",
-                               width=30,
-                               corner_radius=120,
-                               command=delete_row)
-button_delete_row.grid(column=0,row=0,padx=40)
+                               width=10,
+                               corner_radius=20,
+                               command=back_delete_row)
+button_delete_row.grid(column=0,row=0,padx=40,ipadx=0)
 #endregion
-"""
 
 
 
 
-#checkbox Main Office
-main_checkbox = ctk.CTkCheckBox(scrollable_frame_Main,text=None)
-main_checkbox.grid(column=0,row=1,padx=0,sticky="w")
 
-#checkbox Back Office
-back_checkbox = ctk.CTkCheckBox(scrollable_frame_Main,text=None)
-back_checkbox.grid(column=0,row=1,padx=0,sticky="w")
+
+
 
 app.mainloop()
