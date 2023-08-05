@@ -7,6 +7,8 @@ import configparser
 ctk.set_appearance_mode("dark")  # Modes: "System" (standard), "Dark", "Light"
 ctk.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
+
+
 app = ctk.CTk()
 
 app.after(0, lambda:app.state('zoomed'))
@@ -185,7 +187,6 @@ def back_delete_row():
 
 
 
-
 #region Labele Main Office
 main_label_datum = ctk.CTkLabel(fixed_frame_main_office,
                            text="Datum",
@@ -242,7 +243,6 @@ main_button_delete_row = ctk.CTkButton(fixed_frame_main_office,text="-",
                                command=main_delete_row)
 main_button_delete_row.grid(column=0,row=0,padx=40)
 #endregion
-
 
 
 
@@ -311,10 +311,6 @@ middle_button_delete_row = ctk.CTkButton(fixed_frame_middle_office,text="-",
                                command=middle_delete_row)
 middle_button_delete_row.grid(column=0,row=0,padx=40)
 #endregion
-
-
-
-
 
 
 
