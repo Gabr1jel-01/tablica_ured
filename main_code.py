@@ -3,12 +3,13 @@ import customtkinter as ctk
 import time 
 import tkinter.messagebox
 import configparser
+from tkinter import filedialog
+
 
 ctk.set_appearance_mode("dark")  # Modes: "System" (standard), "Dark", "Light"
 ctk.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
 app = ctk.CTk()
-
 app.after(0, lambda:app.state('zoomed'))
 app.title("Office")
 #ovdje sam kreirao tabView
@@ -19,9 +20,21 @@ tabView.pack(pady=0, padx=0, fill="both", expand=True)
 tabView.add("Main Office")
 tabView.add("Middle Office")
 tabView.add("Back Office")
+tabView.add("Datoteka")
 
 #ovdje sam stavio da tab glavni izbornik bude prvi otvoren kada se pokrene aplikacija
-tabView.set("Back Office")
+tabView.set("Main Office")
+
+
+
+
+save_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi",command="")
+save_button.pack(padx=450,pady=(190,5)) 
+
+save_as_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi kao...",command="")
+save_as_button.pack(padx=450,pady=(10,0))
+
+
 
 #region Fiksni Frameovi
 #Fiksni frame Main Office
@@ -179,9 +192,12 @@ def middle_delete_row():
         k -= 1
     else:
         tkinter.messagebox.showinfo("Error","Nije moguce izbrisati pocetni red")
-    
-#endregion
 
+def save_as_file():
+    
+    
+    pass    
+#endregion
 
 
 
@@ -316,7 +332,7 @@ back_button_delete_row.grid(column=0,row=0,padx=40)
 middle_label_primatelj = ctk.CTkLabel(fixed_frame_middle_office,
                            text="Primatelj",
                            font=("Arial",24))
-middle_label_primatelj.grid(column=1,row=0,padx=5)
+middle_label_primatelj.grid(column=1,row=0,padx=(0,5))
 
 middle_label_posiljatelj = ctk.CTkLabel(fixed_frame_middle_office,
                            text="Posiljatelj",
@@ -352,7 +368,7 @@ middle_label_datum_stavljanja_na_placanje.grid(column=7,row=0,ipadx=5)
 #region Entry Middle Office
 
 middle_entry_primatelj = ctk.CTkEntry(scrollable_frame_Middle,width=105)
-middle_entry_primatelj.grid(column=1,row=1,ipadx=0,sticky="w",ipady=0)
+middle_entry_primatelj.grid(column=1,row=1,padx=0,sticky="w",ipady=0)
 
 middle_entry_posiljatelj = ctk.CTkEntry(scrollable_frame_Middle,width=105)
 middle_entry_posiljatelj.grid(column=2,row=1,ipadx=0,ipady=0)
@@ -394,6 +410,9 @@ middle_button_delete_row = ctk.CTkButton(fixed_frame_middle_office,text="-",
                                command=middle_delete_row)
 middle_button_delete_row.grid(column=0,row=0,padx=40,ipadx=0,ipady=0)
 #endregion
+
+
+
 
 
 
