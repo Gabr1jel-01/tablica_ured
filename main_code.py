@@ -27,7 +27,6 @@ tabView.set("Main Office")
 
 
 
-
 save_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi",command="")
 save_button.pack(padx=450,pady=(190,5)) 
 
@@ -238,12 +237,11 @@ main_entry_datumipotpis.grid(column=4,row=1,ipadx=0,pady=(5,0))
 #endregion
 
 #region Checkbox Main Office
-#checkbox Main Office
-main_checkbox = ctk.CTkCheckBox(scrollable_frame_Main,text=None)
+main_checkbox = ctk.CTkCheckBox(scrollable_frame_Main,text=None,hover_color="#176828",fg_color="#176828")
 main_checkbox.grid(column=0,row=1,padx=0,sticky="w")
 #endregion
 
-#region gumb za dodavanje/oduzimanje reda Main Office
+#region gumb za dodavanje/oduzimanje reda Main Officed
 main_button_add_row = ctk.CTkButton(fixed_frame_main_office,text="+",
                                width=10,
                                corner_radius=120,
