@@ -1,4 +1,5 @@
 import tkinter as tk
+from time import *
 import customtkinter as ctk
 import time 
 import tkinter.messagebox
@@ -6,13 +7,14 @@ import configparser
 from tkinter import filedialog
 
 
-
-ctk.set_appearance_mode("dark")  # Modes: "System" (standard), "Dark", "Light"
+ctk.set_appearance_mode("light")  # Modes: "System" (standard), "Dark", "Light"
 ctk.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
 app = ctk.CTk()
 app.after(0, lambda:app.state('zoomed'))
 app.title("Office")
+
+#region TabView
 #ovdje sam kreirao tabView
 tabView = ctk.CTkTabview(app)
 tabView.pack(pady=0, padx=0, fill="both", expand=True)
@@ -25,16 +27,15 @@ tabView.add("Datoteka")
 
 #ovdje sam stavio da tab glavni izbornik bude prvi otvoren kada se pokrene aplikacija
 tabView.set("Main Office")
+#endregion
 
-
-
+#region Save i Save As buttons...
 save_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi",command="")
 save_button.pack(padx=450,pady=(190,5)) 
 
 save_as_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi kao...",command="")
 save_as_button.pack(padx=450,pady=(10,0))
-
-
+#endregion
 
 #region Fiksni Frameovi
 #Fiksni frame Main Office
@@ -64,19 +65,32 @@ scrollable_frame_Back.pack(pady=5, padx=5, fill="both", expand=True)
 main_add_all_list = []
 middle_add_all_list = []
 back_add_all_list = []
+checkbox_memory_location = (".!ctktabview.!ctkframe.!ctkframe2.!canvas.!ctkscrollableframe.!ctkcheckbox2")
+
+
 #endregion
 
 #region Konstante
 i = 1
 j = 1
 k = 1
+z = 1
+#endregion
+
+#region Provjera Check Boxa
+
+main_checkbox_var = tk.IntVar()
+
+
+
 #endregion
 
 #region FUNKCIJE 
 def main_add_row():
     global i
-    main_checkbox = ctk.CTkCheckBox(scrollable_frame_Main,text=None)
+    main_checkbox = ctk.CTkCheckBox(scrollable_frame_Main,text=None,fg_color="#37CB56",hover_color="#176828")
     main_checkbox.grid(column=0,row=i+1,padx=0,sticky="w")
+    
     
     main_entry_datum = ctk.CTkEntry(scrollable_frame_Main,width=100)
     main_entry_datum.grid(column=1,row=i+1,padx=0,pady=0,sticky="w")
@@ -98,6 +112,8 @@ def main_add_row():
     main_row_widgets = [main_checkbox, main_entry_datum, main_entry_otkup, main_entry_ustup, main_entry_datumipotpis]
     main_add_all_list.append(main_row_widgets)
     
+    #print(main_checkbox)
+    
     i += 1
     
 def main_delete_row():
@@ -113,7 +129,7 @@ def main_delete_row():
 def back_add_row():
     
     global j
-    back_checkbox = ctk.CTkCheckBox(scrollable_frame_Back,text=None)
+    back_checkbox = ctk.CTkCheckBox(scrollable_frame_Back,text=None,fg_color="#37CB56",hover_color="#176828")
     back_checkbox.grid(column=0,row=j+1,padx=0,sticky="w")
     
     back_entry_datum = ctk.CTkEntry(scrollable_frame_Back,width=300)
@@ -151,7 +167,7 @@ def back_delete_row():
 def middle_add_row():
     global k
     
-    middle_checkbox = ctk.CTkCheckBox(scrollable_frame_Middle,text=None)
+    middle_checkbox = ctk.CTkCheckBox(scrollable_frame_Middle,text=None,fg_color="#37CB56",hover_color="#176828")
     middle_checkbox.grid(column=0,row=k+1,ipadx=0,sticky="w")
     
     middle_entry_primatelj = ctk.CTkEntry(scrollable_frame_Middle,width=105)
@@ -197,9 +213,27 @@ def save_as_file():
     
     
     pass    
+
+def checkbox_check():
+    if checkbox_memory_location[z] == f".!ctktabview.!ctkframe.!ctkframe2.!canvas.!ctkscrollableframe.!ctkcheckbox{z}": 
+        if main_checkbox_var.get() == 1:
+            main_entry_datum.configure(fg_color="#37CB56")
+            main_entry_otkup.configure(fg_color="#37CB56")
+            main_entry_ustup.configure(fg_color="#37CB56")
+            main_entry_datumipotpis.configure(fg_color="#37CB56")
+        elif main_checkbox_var.get() == 0:
+            main_entry_datum.configure(fg_color="white")
+            main_entry_otkup.configure(fg_color="white")
+            main_entry_ustup.configure(fg_color="white")
+            main_entry_datumipotpis.configure(fg_color="white")
+    
+    z += 1
+    
+    pass
+    
+    
+
 #endregion
-
-
 
 #region Labele Main Office
 main_label_datum = ctk.CTkLabel(fixed_frame_main_office,
@@ -235,10 +269,12 @@ main_entry_ustup.grid(column=3,row=1,ipadx=0,pady=(5,0))
 
 main_entry_datumipotpis = ctk.CTkEntry(scrollable_frame_Main,width=310)
 main_entry_datumipotpis.grid(column=4,row=1,ipadx=0,pady=(5,0))
+
 #endregion
 
 #region Checkbox Main Office
-main_checkbox = ctk.CTkCheckBox(scrollable_frame_Main,text=None,hover_color="#176828",fg_color="#176828")
+main_checkbox = ctk.CTkCheckBox(master=scrollable_frame_Main,text=None,hover_color="#176828",fg_color="#37CB56",
+                                variable=main_checkbox_var, command=checkbox_check)
 main_checkbox.grid(column=0,row=1,padx=0,sticky="w")
 #endregion
 
@@ -256,6 +292,8 @@ main_button_delete_row = ctk.CTkButton(fixed_frame_main_office,text="-",
                                command=main_delete_row)
 main_button_delete_row.grid(column=0,row=0,padx=40)
 #endregion
+
+
 
 
 
@@ -306,7 +344,7 @@ back_entry_placeno_neplaceno.grid(column=5,row=1,padx=0,pady=(5,0))
 #endregion
 
 #region Checkbox Back Office
-back_checkbox = ctk.CTkCheckBox(scrollable_frame_Back,text=None)
+back_checkbox = ctk.CTkCheckBox(scrollable_frame_Back,text=None,fg_color="#37CB56",hover_color="#176828")
 back_checkbox.grid(column=0,row=1,padx=0,sticky="w")
 #endregion
 
@@ -324,6 +362,7 @@ back_button_delete_row = ctk.CTkButton(fixed_frame_back_office,text="-",
                                command=back_delete_row)
 back_button_delete_row.grid(column=0,row=0,padx=40)
 #endregion
+
 
 
 
@@ -367,35 +406,35 @@ middle_label_datum_stavljanja_na_placanje.grid(column=7,row=0,ipadx=5)
 #region Entry Middle Office
 
 middle_entry_primatelj = ctk.CTkEntry(scrollable_frame_Middle,width=105)
-middle_entry_primatelj.grid(column=1,row=1,padx=0,sticky="w",ipady=0)
+middle_entry_primatelj.grid(column=1,row=1,sticky="w",ipady=0,padx=0,pady=0)
 
 middle_entry_posiljatelj = ctk.CTkEntry(scrollable_frame_Middle,width=105)
-middle_entry_posiljatelj.grid(column=2,row=1,ipadx=0,ipady=0)
+middle_entry_posiljatelj.grid(column=2,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 
 middle_entry_broj_ugovora = ctk.CTkEntry(scrollable_frame_Middle,width=145)
-middle_entry_broj_ugovora.grid(column=3,row=1,ipadx=0,ipady=0)
+middle_entry_broj_ugovora.grid(column=3,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 
 middle_entry_iznos_potrazivanja = ctk.CTkEntry(scrollable_frame_Middle,width=195)
-middle_entry_iznos_potrazivanja.grid(column=4,row=1,ipadx=0,ipady=0)
+middle_entry_iznos_potrazivanja.grid(column=4,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 
 middle_entry_iznos_otkupa = ctk.CTkEntry(scrollable_frame_Middle,width=140)
-middle_entry_iznos_otkupa.grid(column=5,row=1,ipadx=0,ipady=0)
+middle_entry_iznos_otkupa.grid(column=5,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 
 middle_entry_broj_fakture = ctk.CTkEntry(scrollable_frame_Middle,width=130)
-middle_entry_broj_fakture.grid(column=6,row=1,ipadx=0,ipady=0)
+middle_entry_broj_fakture.grid(column=6,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 
 middle_entry_datum_stavljanja_na_placanje = ctk.CTkEntry(scrollable_frame_Middle,width=300)
-middle_entry_datum_stavljanja_na_placanje.grid(column=7,row=1,ipadx=0,ipady=0)
+middle_entry_datum_stavljanja_na_placanje.grid(column=7,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 
 #endregion
 
 #region Checkbox Middle Office
 
-middle_checkbox = ctk.CTkCheckBox(scrollable_frame_Middle,text=None)
+middle_checkbox = ctk.CTkCheckBox(scrollable_frame_Middle,text=None,fg_color="#37CB56",hover_color="#176828")
 middle_checkbox.grid(column=0,row=1,ipadx=0,ipady=0,sticky="w")
 #endregion
 
-#region gumb za Middle reda Back Office
+#region gumb za dodavanje/oduzimanje Middle reda Back Office
 middle_button_add_row = ctk.CTkButton(fixed_frame_middle_office,text="+",
                                width=10,
                                corner_radius=120,
@@ -412,7 +451,5 @@ middle_button_delete_row.grid(column=0,row=0,padx=40,ipadx=0,ipady=0)
 
 
 
-
-
-
 app.mainloop()
+
