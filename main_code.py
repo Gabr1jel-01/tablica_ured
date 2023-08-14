@@ -79,7 +79,8 @@ k = 1
 
 main_checkbox_var = tk.IntVar()
 
-
+#kreirati listu od svih widgeta var i onda stalno provjeravati u toj listi jeli markano ili nije i vidjeti kako 
+#korisiti counter u stvaranju nove varijable 
 
 
 #endregion
@@ -214,6 +215,7 @@ def save_as_file():
     pass    
 
 def checkbox_check():
+    
         if main_checkbox_var.get():
             main_entry_datum.configure(fg_color="#37CB56")
             main_entry_otkup.configure(fg_color="#37CB56")
