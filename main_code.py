@@ -227,13 +227,9 @@ def checkbox_check():
             main_entry_ustup.configure(fg_color="white")
             main_entry_datumipotpis.configure(fg_color="white")
     
-
-    
-    
-    
-    
-
 #endregion
+
+
 
 #region Labele Main Office
 main_label_datum = ctk.CTkLabel(fixed_frame_main_office,
