@@ -448,4 +448,3 @@ middle_button_delete_row.grid(column=0,row=0,padx=40,ipadx=0,ipady=0)
 
 
 app.mainloop()
-
