@@ -73,27 +73,30 @@ back_add_all_list = []
 i = 1
 j = 1
 k = 1
+checkbox_var = {}
+checkbox_count = 0
 #endregion
 
-#region Provjera Check Boxa
-
-main_checkbox_var = tk.IntVar()
-
-#kreirati listu od svih widgeta var i onda stalno provjeravati u toj listi jeli markano ili nije i vidjeti kako 
-#korisiti counter u stvaranju nove varijable 
-
-
-#endregion
 
 #region FUNKCIJE 
+def on_checkbox_click(checkbox_id):
+    if checkbox_var[checkbox_id].get() == 1:
+        print(f"Checkbox {checkbox_id} is marked")
+    else:
+        print(f"Checkbox {checkbox_id} is not marked")
+        
 def main_add_row():
     global i
     global main_row_data
+    global checkbox_count
+    checkbox_id = checkbox_count
     main_row_data = {}
 
-    main_checkbox = ctk.CTkCheckBox(scrollable_frame_Main, text=None, fg_color="#37CB56", hover_color="#176828")
+    checkbox_var[checkbox_id] = tk.IntVar()
+    main_checkbox = tk.Checkbutton(scrollable_frame_Main, text=f"Checkbox {checkbox_id}", variable=checkbox_var[checkbox_id], command=lambda id=checkbox_id: on_checkbox_click(id))
     main_checkbox.grid(column=0, row=i+1, padx=0, sticky="w")
     main_row_data['checkbox'+f"{i}"] = main_checkbox
+    checkbox_count += 1
 
     main_entry_datum = ctk.CTkEntry(scrollable_frame_Main, width=100)
     main_entry_datum.grid(column=1, row=i+1, padx=0, pady=0, sticky="w")
@@ -209,30 +212,9 @@ def middle_delete_row():
         k -= 1
     else:
         tkinter.messagebox.showinfo("Error","Nije moguce izbrisati pocetni red")
-
-def save_as_file():
-    
-    pass    
-
-def checkbox_check():
-    
-    if main_checkbox_var.get():
-            main_entry_datum.configure(fg_color="#37CB56")
-            main_entry_otkup.configure(fg_color="#37CB56")
-            main_entry_ustup.configure(fg_color="#37CB56")
-            main_entry_datumipotpis.configure(fg_color="#37CB56")
-    elif main_checkbox_var.get() == 0:
-            main_entry_datum.configure(fg_color="white")
-            main_entry_otkup.configure(fg_color="white")
-            main_entry_ustup.configure(fg_color="white")
-            main_entry_datumipotpis.configure(fg_color="white")
+ 
 
 
-def save_the_state():
-    main_entry_datumipotpis_data =  main_entry_datumipotpis.get()
-    main_entry_datum_data = main_entry_datum.get()
-    main_entry_otkup_data = main_entry_otkup.get()
-    main_entry_ustup_data = main_entry_ustup.get()
     
     
     
@@ -278,9 +260,7 @@ main_entry_datumipotpis.grid(column=4,row=1,ipadx=0,pady=(5,0))
 #endregion
 
 #region Checkbox Main Office
-main_checkbox = ctk.CTkCheckBox(master=scrollable_frame_Main,text=None,hover_color="#176828",fg_color="#37CB56",
-                                variable=main_checkbox_var, command=checkbox_check)
-main_checkbox.grid(column=0,row=1,padx=0,sticky="w")
+
 #endregion
 
 #region gumb za dodavanje/oduzimanje reda Main Officed
