@@ -75,11 +75,6 @@ j = 1
 k = 1
 #endregion
 
-#kreirati listu od svih widgeta var i onda stalno provjeravati u toj listi jeli markano ili nije i vidjeti kako 
-#korisiti counter u stvaranju nove varijable 
-
-
-#endregion
 
 #region FUNKCIJE 
 def add_row():
