@@ -75,10 +75,6 @@ j = 1
 k = 1
 #endregion
 
-#region Provjera Check Boxa
-
-main_checkbox_var = tk.IntVar()
-
 #kreirati listu od svih widgeta var i onda stalno provjeravati u toj listi jeli markano ili nije i vidjeti kako 
 #korisiti counter u stvaranju nove varijable 
 
@@ -86,36 +82,46 @@ main_checkbox_var = tk.IntVar()
 #endregion
 
 #region FUNKCIJE 
-def main_add_row():
+def add_row():
     global i
-    global main_row_data
-    main_row_data = {}
+    global rows
+    row = []
 
-    main_checkbox = ctk.CTkCheckBox(scrollable_frame_Main, text=None, fg_color="#37CB56", hover_color="#176828")
-    main_checkbox.grid(column=0, row=i+1, padx=0, sticky="w")
-    main_row_data['checkbox'+f"{i}"] = main_checkbox
+    cbox_var = tkinter.IntVar()
+    kwargs = {}
+    kwargs["checked"] = cbox_var
+    kwargs["row"] = row
+    checkbox = ctk.CTkCheckBox(scrollable_frame_Main,
+                               onvalue=1,
+                               variable=cbox_var,
+                               offvalue=0,
+                               text=None,
+                               fg_color="#37CB56",
+                               hover_color="#176828",
+                               command=lambda kwargs=kwargs: checkbox_check(kwargs))
+    checkbox.grid(column=0, row=i+1, padx=0, sticky="w")
+    row.append(checkbox)
 
-    main_entry_datum = ctk.CTkEntry(scrollable_frame_Main, width=100)
-    main_entry_datum.grid(column=1, row=i+1, padx=0, pady=0, sticky="w")
-    main_row_data['datum'+f"{i}"] = main_entry_datum
+    entry_datum = ctk.CTkEntry(scrollable_frame_Main, width=100)
+    entry_datum.grid(column=1, row=i+1, padx=0, pady=0, sticky="w")
+    row.append(entry_datum)
 
     main_entry_otkup = ctk.CTkEntry(scrollable_frame_Main, width=340)
     main_entry_otkup.grid(column=2, row=i+1, padx=0, pady=0)
-    main_row_data['otkup'+f"{i}"] = main_entry_otkup
+    row.append(main_entry_otkup)
 
     main_entry_ustup = ctk.CTkEntry(scrollable_frame_Main, width=260)
     main_entry_ustup.grid(column=3, row=i+1, padx=0)
-    main_row_data['ustup'+f"{i}"] = main_entry_ustup
+    row.append(main_entry_ustup)
 
     main_entry_datumipotpis = ctk.CTkEntry(scrollable_frame_Main, width=310)
     main_entry_datumipotpis.grid(column=4, row=i+1, padx=0, pady=0)
-    main_row_data['datumipotpis'+f"{i}"] = main_entry_datumipotpis
+    row.append(main_entry_datumipotpis)
 
-    main_add_all_list.append(main_row_data)
-    print(main_add_all_list)
-
+    main_add_all_list.append(row)
 
     i += 1
+
     
 def main_delete_row():
     global i
@@ -214,19 +220,13 @@ def save_as_file():
     
     pass    
 
-def checkbox_check():
-    
-    if main_checkbox_var.get():
-            main_entry_datum.configure(fg_color="#37CB56")
-            main_entry_otkup.configure(fg_color="#37CB56")
-            main_entry_ustup.configure(fg_color="#37CB56")
-            main_entry_datumipotpis.configure(fg_color="#37CB56")
-    elif main_checkbox_var.get() == 0:
-            main_entry_datum.configure(fg_color="white")
-            main_entry_otkup.configure(fg_color="white")
-            main_entry_ustup.configure(fg_color="white")
-            main_entry_datumipotpis.configure(fg_color="white")
-
+def checkbox_check(kwargs):
+    if kwargs["checked"].get():
+        for item in kwargs["row"]:
+            item.configure(fg_color="#37CB56")
+    else:
+        for item in kwargs["row"]:
+            item.configure(fg_color="white")
 
 def save_the_state():
     main_entry_datumipotpis_data =  main_entry_datumipotpis.get()
@@ -241,6 +241,7 @@ def save_the_state():
 
 
 #region Labele Main Office
+
 main_label_datum = ctk.CTkLabel(fixed_frame_main_office,
                            text="Datum",
                            font=("Arial",24))
@@ -263,24 +264,37 @@ main_label_otkup.grid(column=4,row=0,ipadx=60)
 #endregion
 
 #region Entry Main Office
+
+main_row = []
+
 main_entry_datum = ctk.CTkEntry(scrollable_frame_Main,width=100)
 main_entry_datum.grid(column=1,row=1,ipadx=0,pady=(5,0),sticky="w")
+main_row.append(main_entry_datum)
 
 main_entry_otkup = ctk.CTkEntry(scrollable_frame_Main,width=340)
 main_entry_otkup.grid(column=2,row=1,ipadx=0,pady=(5,0))
+main_row.append(main_entry_otkup)
 
 main_entry_ustup = ctk.CTkEntry(scrollable_frame_Main,width=260)
 main_entry_ustup.grid(column=3,row=1,ipadx=0,pady=(5,0))
+main_row.append(main_entry_ustup)
 
 main_entry_datumipotpis = ctk.CTkEntry(scrollable_frame_Main,width=310)
 main_entry_datumipotpis.grid(column=4,row=1,ipadx=0,pady=(5,0))
+main_row.append(main_entry_datumipotpis)
 
 #endregion
 
 #region Checkbox Main Office
+cbox_var = tkinter.IntVar()
+kwargs = {}
+kwargs["checked"] = cbox_var
+kwargs["row"] = main_row
 main_checkbox = ctk.CTkCheckBox(master=scrollable_frame_Main,text=None,hover_color="#176828",fg_color="#37CB56",
-                                variable=main_checkbox_var, command=checkbox_check)
+                                onvalue=1, offvalue=0,
+                                variable=cbox_var, command=lambda kwargs=kwargs: checkbox_check(kwargs))
 main_checkbox.grid(column=0,row=1,padx=0,sticky="w")
+main_row.append(main_checkbox)
 #endregion
 
 #region gumb za dodavanje/oduzimanje reda Main Officed
@@ -288,7 +302,7 @@ main_button_add_row = ctk.CTkButton(fixed_frame_main_office,text="+",
                                width=10,
                                corner_radius=120,
                                anchor="w",
-                               command=main_add_row)
+                               command=add_row)
 main_button_add_row.grid(column=0,row=0,sticky="w")
 
 main_button_delete_row = ctk.CTkButton(fixed_frame_main_office,text="-",
