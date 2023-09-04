@@ -7,6 +7,8 @@ import configparser
 from tkinter import filedialog
 
 
+
+
 ctk.set_appearance_mode("light")  # Modes: "System" (standard), "Dark", "Light"
 ctk.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
@@ -20,7 +22,7 @@ app.title("Office")
 tabView = ctk.CTkTabview(app)
 tabView.pack(pady=0, padx=0, fill="both", expand=True)
 
-#ovdje sam dodao tri taba
+#ovdje sam dodao cetiri taba
 tabView.add("Main Office")
 tabView.add("Middle Office")
 tabView.add("Back Office")
@@ -80,7 +82,6 @@ k = 1
 #region FUNKCIJE 
 def main_add_row():
     global i
-    global rows
     row = []
 
     cbox_var = tkinter.IntVar()
@@ -132,28 +133,45 @@ def main_delete_row():
 def back_add_row():
     
     global j
-    back_checkbox = ctk.CTkCheckBox(scrollable_frame_Back,text=None,fg_color="#37CB56",hover_color="#176828")
+    row = []
+    cbox_var = tkinter.IntVar()
+    kwargs = {}
+    kwargs["checked"] = cbox_var
+    kwargs["row"] = row
+    
+    
+    
+    back_checkbox = ctk.CTkCheckBox(scrollable_frame_Back,text=None,fg_color="#37CB56",hover_color="#176828", 
+                                    onvalue=1,
+                                    variable=cbox_var,
+                                    offvalue=0,
+                                    command=lambda kwargs=kwargs: checkbox_check(kwargs))
     back_checkbox.grid(column=0,row=j+1,padx=0,sticky="w")
+    row.append(back_checkbox)
     
     back_entry_datum = ctk.CTkEntry(scrollable_frame_Back,width=300)
     back_entry_datum.grid(column=1,row=j+1,padx=0,pady=0,sticky="w")
+    row.append(back_entry_datum)
 
     back_entry_br_ugovora = ctk.CTkEntry(scrollable_frame_Back,width=170)
     back_entry_br_ugovora.grid(column=2,row=j+1,padx=0,pady=0)
+    row.append(back_entry_br_ugovora)
 
     back_entry_br_fakture = ctk.CTkEntry(scrollable_frame_Back,width=170)
     back_entry_br_fakture.grid(column=3,row=j+1,padx=0)
-
+    row.append(back_entry_br_fakture)
+    
     back_entry_iznos = ctk.CTkEntry(scrollable_frame_Back,width=150)
     back_entry_iznos.grid(column=4,row=j+1,padx=0,pady=0)
+    row.append(back_entry_iznos)
     
     back_entry_placeno_neplaceno = ctk.CTkEntry(scrollable_frame_Back,width=310)
     back_entry_placeno_neplaceno.grid(column=5,row=j+1,padx=0,pady=0)
+    row.append(back_entry_placeno_neplaceno)
     
     # Store references to the widgets of the row in a list
-    back_row_widgets = [back_checkbox,back_entry_datum,back_entry_br_ugovora,
-                   back_entry_br_fakture,back_entry_iznos,back_entry_placeno_neplaceno]
-    back_add_all_list.append(back_row_widgets)
+    
+    back_add_all_list.append(row)
     
     j += 1
 
@@ -170,35 +188,54 @@ def back_delete_row():
 def middle_add_row():
     global k
     
-    middle_checkbox = ctk.CTkCheckBox(scrollable_frame_Middle,text=None,fg_color="#37CB56",hover_color="#176828")
+    row = []
+    cbox_var = tkinter.IntVar()
+    kwargs = {}
+    kwargs["checked"] = cbox_var
+    kwargs["row"] = row
+    
+    middle_checkbox = ctk.CTkCheckBox(scrollable_frame_Middle,text=None,fg_color="#37CB56",hover_color="#176828",
+                                      onvalue=1,
+                                    variable=cbox_var,
+                                    offvalue=0,
+                                    command=lambda kwargs=kwargs: checkbox_check(kwargs))
     middle_checkbox.grid(column=0,row=k+1,ipadx=0,sticky="w")
+    row.append(middle_checkbox)
+    
     
     middle_entry_primatelj = ctk.CTkEntry(scrollable_frame_Middle,width=105)
     middle_entry_primatelj.grid(column=1,row=k+1,ipadx=0,pady=0,sticky="w")
+    row.append(middle_entry_primatelj)
 
     middle_entry_posiljatelj = ctk.CTkEntry(scrollable_frame_Middle,width=105)
     middle_entry_posiljatelj.grid(column=2,row=k+1,ipadx=0,pady=0)
+    row.append(middle_entry_posiljatelj)
 
     middle_entry_broj_ugovora = ctk.CTkEntry(scrollable_frame_Middle,width=145)
     middle_entry_broj_ugovora.grid(column=3,row=k+1,ipadx=0,pady=0)
+    row.append(middle_entry_broj_ugovora)
 
     middle_entry_iznos_potrazivanja = ctk.CTkEntry(scrollable_frame_Middle,width=195)
     middle_entry_iznos_potrazivanja.grid(column=4,row=k+1,ipadx=0,pady=0)
+    row.append(middle_entry_iznos_potrazivanja)
 
     middle_entry_iznos_otkupa = ctk.CTkEntry(scrollable_frame_Middle,width=140)
     middle_entry_iznos_otkupa.grid(column=5,row=k+1,ipadx=0,pady=0)
+    row.append(middle_entry_iznos_otkupa)
 
     middle_entry_broj_fakture = ctk.CTkEntry(scrollable_frame_Middle,width=130)
     middle_entry_broj_fakture.grid(column=6,row=k+1,ipadx=0,pady=0)
+    row.append(middle_entry_broj_fakture)
 
     middle_entry_datum_stavljanja_na_placanje = ctk.CTkEntry(scrollable_frame_Middle,width=300)
     middle_entry_datum_stavljanja_na_placanje.grid(column=7,row=k+1,ipadx=0,pady=0)
+    row.append(middle_entry_datum_stavljanja_na_placanje)
 
     middle_row_widgets = [middle_checkbox,middle_entry_primatelj,middle_entry_posiljatelj,
                         middle_entry_broj_ugovora,middle_entry_iznos_potrazivanja,
                         middle_entry_iznos_otkupa,middle_entry_broj_fakture,
                         middle_entry_datum_stavljanja_na_placanje]
-    middle_add_all_list.append(middle_row_widgets)
+    middle_add_all_list.append(row)
     
     k += 1
 
@@ -330,25 +367,44 @@ back_label_placeno_neplaceno.grid(column=5,row=0,ipadx=30)
 #endregion
 
 #region Entry Back Office
+back_row = []
+
 back_entry_datum = ctk.CTkEntry(scrollable_frame_Back,width=300)
 back_entry_datum.grid(column=1,row=1,padx=0,pady=(5,0),sticky="w")
+back_row.append(back_entry_datum)
 
 back_entry_br_ugovora = ctk.CTkEntry(scrollable_frame_Back,width=170)
 back_entry_br_ugovora.grid(column=2,row=1,padx=0,pady=(5,0))
+back_row.append(back_entry_br_ugovora)
 
 back_entry_br_fakture = ctk.CTkEntry(scrollable_frame_Back,width=170)
 back_entry_br_fakture.grid(column=3,row=1,padx=0,pady=(5,0))
+back_row.append(back_entry_br_fakture)
 
 back_entry_iznos = ctk.CTkEntry(scrollable_frame_Back,width=150)
 back_entry_iznos.grid(column=4,row=1,padx=0,pady=(5,0))
+back_row.append(back_entry_iznos)
 
 back_entry_placeno_neplaceno = ctk.CTkEntry(scrollable_frame_Back,width=310)
 back_entry_placeno_neplaceno.grid(column=5,row=1,padx=0,pady=(5,0))
+back_row.append(back_entry_placeno_neplaceno)
+
+
 #endregion
 
 #region Checkbox Back Office
-back_checkbox = ctk.CTkCheckBox(scrollable_frame_Back,text=None,fg_color="#37CB56",hover_color="#176828")
+cbox_var = tkinter.IntVar()
+kwargs = {}
+kwargs["checked"] = cbox_var
+kwargs["row"] = back_row
+back_checkbox = ctk.CTkCheckBox(master=scrollable_frame_Back,text=None,hover_color="#176828",fg_color="#37CB56",
+                                onvalue=1, offvalue=0,
+                                variable=cbox_var, command=lambda kwargs=kwargs: checkbox_check(kwargs))
 back_checkbox.grid(column=0,row=1,padx=0,sticky="w")
+
+
+
+
 #endregion
 
 #region gumb za dodavanje/oduzimanje reda Back Office
@@ -408,32 +464,50 @@ middle_label_datum_stavljanja_na_placanje.grid(column=7,row=0,ipadx=5)
 
 #region Entry Middle Office
 
+middle_row = []
+
 middle_entry_primatelj = ctk.CTkEntry(scrollable_frame_Middle,width=105)
 middle_entry_primatelj.grid(column=1,row=1,sticky="w",ipady=0,padx=0,pady=0)
+middle_row.append(middle_entry_primatelj)
+
 
 middle_entry_posiljatelj = ctk.CTkEntry(scrollable_frame_Middle,width=105)
 middle_entry_posiljatelj.grid(column=2,row=1,ipadx=0,ipady=0,padx=0,pady=0)
+middle_row.append(middle_entry_posiljatelj)
 
 middle_entry_broj_ugovora = ctk.CTkEntry(scrollable_frame_Middle,width=145)
 middle_entry_broj_ugovora.grid(column=3,row=1,ipadx=0,ipady=0,padx=0,pady=0)
+middle_row.append(middle_entry_broj_ugovora)
+
 
 middle_entry_iznos_potrazivanja = ctk.CTkEntry(scrollable_frame_Middle,width=195)
 middle_entry_iznos_potrazivanja.grid(column=4,row=1,ipadx=0,ipady=0,padx=0,pady=0)
+middle_row.append(middle_entry_iznos_potrazivanja)
 
 middle_entry_iznos_otkupa = ctk.CTkEntry(scrollable_frame_Middle,width=140)
 middle_entry_iznos_otkupa.grid(column=5,row=1,ipadx=0,ipady=0,padx=0,pady=0)
+middle_row.append(middle_entry_iznos_otkupa)
 
 middle_entry_broj_fakture = ctk.CTkEntry(scrollable_frame_Middle,width=130)
 middle_entry_broj_fakture.grid(column=6,row=1,ipadx=0,ipady=0,padx=0,pady=0)
+middle_row.append(middle_entry_broj_fakture)
 
 middle_entry_datum_stavljanja_na_placanje = ctk.CTkEntry(scrollable_frame_Middle,width=300)
 middle_entry_datum_stavljanja_na_placanje.grid(column=7,row=1,ipadx=0,ipady=0,padx=0,pady=0)
+middle_row.append(middle_entry_datum_stavljanja_na_placanje)
+
 
 #endregion
 
 #region Checkbox Middle Office
+cbox_var = tkinter.IntVar()
+kwargs = {}
+kwargs["checked"] = cbox_var
+kwargs["row"] = middle_row
 
-middle_checkbox = ctk.CTkCheckBox(scrollable_frame_Middle,text=None,fg_color="#37CB56",hover_color="#176828")
+middle_checkbox = ctk.CTkCheckBox(scrollable_frame_Middle,text=None,fg_color="#37CB56",hover_color="#176828",
+                                onvalue=1, offvalue=0,
+                                variable=cbox_var, command=lambda kwargs=kwargs: checkbox_check(kwargs))
 middle_checkbox.grid(column=0,row=1,ipadx=0,ipady=0,sticky="w")
 #endregion
 
