@@ -12,6 +12,7 @@ ctk.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark
 
 app = ctk.CTk()
 app.after(0, lambda:app.state('zoomed'))
+#app.resizable(height=False,width=False)
 app.title("Office")
 
 #region TabView
@@ -77,7 +78,7 @@ k = 1
 
 
 #region FUNKCIJE 
-def add_row():
+def main_add_row():
     global i
     global rows
     row = []
@@ -114,19 +115,19 @@ def add_row():
     row.append(main_entry_datumipotpis)
 
     main_add_all_list.append(row)
+    print(main_add_all_list)
 
     i += 1
 
-    
 def main_delete_row():
     global i
     if main_add_all_list:
         last_row_widgets = main_add_all_list.pop()  # Remove the last row's widgets from the list
-        for widget in last_row_widgets.values():
+        for widget in last_row_widgets:
             widget.destroy()  # Destroy each widget in the row
         i -= 1
     else:
-        tkinter.messagebox.showinfo("Error","Nije moguce izbrisati pocetni red")
+        tkinter.messagebox.showinfo("Error","Nije moguće izbrisati početni red")
 
 def back_add_row():
     
@@ -209,11 +210,7 @@ def middle_delete_row():
             widget.destroy()  # Destroy each widget in the row
         k -= 1
     else:
-        tkinter.messagebox.showinfo("Error","Nije moguce izbrisati pocetni red")
-
-def save_as_file():
-    
-    pass    
+        tkinter.messagebox.showinfo("Error","Nije moguce izbrisati pocetni red")   
 
 def checkbox_check(kwargs):
     if kwargs["checked"].get():
@@ -223,14 +220,6 @@ def checkbox_check(kwargs):
         for item in kwargs["row"]:
             item.configure(fg_color="white")
 
-def save_the_state():
-    main_entry_datumipotpis_data =  main_entry_datumipotpis.get()
-    main_entry_datum_data = main_entry_datum.get()
-    main_entry_otkup_data = main_entry_otkup.get()
-    main_entry_ustup_data = main_entry_ustup.get()
-    
-    
-    
 #endregion
 
 
@@ -297,7 +286,7 @@ main_button_add_row = ctk.CTkButton(fixed_frame_main_office,text="+",
                                width=10,
                                corner_radius=120,
                                anchor="w",
-                               command=add_row)
+                               command=main_add_row)
 main_button_add_row.grid(column=0,row=0,sticky="w")
 
 main_button_delete_row = ctk.CTkButton(fixed_frame_main_office,text="-",
