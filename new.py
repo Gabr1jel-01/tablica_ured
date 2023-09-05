@@ -26,7 +26,9 @@ tabView.pack(pady=0, padx=0, fill="both", expand=True)
 tabView.add("Main Office")
 tabView.add("Middle Office")
 tabView.add("Back Office")
+tabView.add("Racunovodstvo")
 tabView.add("Datoteka")
+
 
 #ovdje sam stavio da tab glavni izbornik bude prvi otvoren kada se pokrene aplikacija
 tabView.set("Main Office")
