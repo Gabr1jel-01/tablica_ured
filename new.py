@@ -30,6 +30,7 @@ tabView.add("Racunovodstvo")
 tabView.add("Datoteka")
 
 
+
 #ovdje sam stavio da tab glavni izbornik bude prvi otvoren kada se pokrene aplikacija
 tabView.set("Main Office")
 #endregion
@@ -52,6 +53,9 @@ fixed_frame_middle_office.pack(pady=5,padx=5,fill="both")
 #fiksni frame Back Office
 fixed_frame_back_office = ctk.CTkFrame(tabView.tab("Back Office"),height=35)
 fixed_frame_back_office.pack(pady=5,padx=5,fill="both")
+#fiksni frame Racunovodstvo
+fixed_frame_racunovodstvo = ctk.CTkFrame(tabView.tab("Racunovodstvo"),height=35)
+fixed_frame_racunovodstvo.pack(pady=5,padx=5,fill="both")
 #endregion
 
 #region Scrollable Frameovi
@@ -64,6 +68,9 @@ scrollable_frame_Middle.pack(pady=5, padx=5, fill="both", expand=True)
 #Back scrollable frame
 scrollable_frame_Back = ctk.CTkScrollableFrame(tabView.tab("Back Office"))
 scrollable_frame_Back.pack(pady=5, padx=5, fill="both", expand=True)
+#Racunovodstvo scrollable frame
+scrollable_frame_racunovodstvo = ctk.CTkScrollableFrame(tabView.tab("Racunovodstvo"))
+scrollable_frame_racunovodstvo.pack(pady=5, padx=5, fill="both", expand=True)
 #endregion
 
 #region Liste

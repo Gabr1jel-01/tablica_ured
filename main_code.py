@@ -29,7 +29,7 @@ tabView.add("Back Office")
 tabView.add("Datoteka")
 
 #ovdje sam stavio da tab glavni izbornik bude prvi otvoren kada se pokrene aplikacija
-tabView.set("Main Office")
+tabView.set("Back Office")
 #endregion
 
 #region Save i Save As buttons...
@@ -87,13 +87,13 @@ def pick_date(event):
     date_window.grab_set()
     date_window.title("Izaberi datum")
     date_window.geometry("300x230+300+300")
-    cal = Calendar(date_window, selectmode="day", date_pattern = "mm/dd/yy", font=("Arial", 20))
+    cal = Calendar(date_window, selectmode="day", date_pattern = "mm/dd/yy", font=("Arial",8))
     cal.place(x=0,y=0)
     
     submit_button = ctk.CTkButton(date_window,text="Submit",
                                   height=20,
                                   width=60)
-    submit_button.place(x=120,y=205)
+    submit_button.place(x=150,y=200)
     for i in range(6):
         cal._week_nbs[i].destroy()
     
@@ -104,8 +104,6 @@ def grab_date():
     
     
     pass
-
-
 
 def main_add_row():
     global i
@@ -122,23 +120,23 @@ def main_add_row():
                                text=None,
                                fg_color="#37CB56",
                                hover_color="#176828",
-                               command=lambda kwargs=kwargs: checkbox_check(kwargs))
+                               command=lambda kwargs=kwargs: checkbox_check(kwargs),border_color="black")
     checkbox.grid(column=0, row=i+1, padx=0, sticky="w")
     row.append(checkbox)
 
-    entry_datum = ctk.CTkEntry(scrollable_frame_Main, width=100)
+    entry_datum = ctk.CTkEntry(scrollable_frame_Main, width=150,border_color="black")
     entry_datum.grid(column=1, row=i+1, padx=0, pady=0, sticky="w")
     row.append(entry_datum)
 
-    main_entry_otkup = ctk.CTkEntry(scrollable_frame_Main, width=340)
+    main_entry_otkup = ctk.CTkEntry(scrollable_frame_Main, width=560,border_color="black")
     main_entry_otkup.grid(column=2, row=i+1, padx=0, pady=0)
     row.append(main_entry_otkup)
 
-    main_entry_ustup = ctk.CTkEntry(scrollable_frame_Main, width=260)
+    main_entry_ustup = ctk.CTkEntry(scrollable_frame_Main, width=500,border_color="black")
     main_entry_ustup.grid(column=3, row=i+1, padx=0)
     row.append(main_entry_ustup)
 
-    main_entry_datumipotpis = ctk.CTkEntry(scrollable_frame_Main, width=310)
+    main_entry_datumipotpis = ctk.CTkEntry(scrollable_frame_Main, width=500,border_color="black")
     main_entry_datumipotpis.grid(column=4, row=i+1, padx=0, pady=0)
     row.append(main_entry_datumipotpis)
 
@@ -172,27 +170,27 @@ def back_add_row():
                                     onvalue=1,
                                     variable=cbox_var,
                                     offvalue=0,
-                                    command=lambda kwargs=kwargs: checkbox_check(kwargs))
+                                    command=lambda kwargs=kwargs: checkbox_check(kwargs),border_color="black")
     back_checkbox.grid(column=0,row=j+1,padx=0,sticky="w")
     row.append(back_checkbox)
     
-    back_entry_datum = ctk.CTkEntry(scrollable_frame_Back,width=300)
+    back_entry_datum = ctk.CTkEntry(scrollable_frame_Back,width=350,border_color="black")
     back_entry_datum.grid(column=1,row=j+1,padx=0,pady=0,sticky="w")
     row.append(back_entry_datum)
 
-    back_entry_br_ugovora = ctk.CTkEntry(scrollable_frame_Back,width=170)
+    back_entry_br_ugovora = ctk.CTkEntry(scrollable_frame_Back,width=300,border_color="black")
     back_entry_br_ugovora.grid(column=2,row=j+1,padx=0,pady=0)
     row.append(back_entry_br_ugovora)
 
-    back_entry_br_fakture = ctk.CTkEntry(scrollable_frame_Back,width=170)
+    back_entry_br_fakture = ctk.CTkEntry(scrollable_frame_Back,width=300,border_color="black")
     back_entry_br_fakture.grid(column=3,row=j+1,padx=0)
     row.append(back_entry_br_fakture)
     
-    back_entry_iznos = ctk.CTkEntry(scrollable_frame_Back,width=150)
+    back_entry_iznos = ctk.CTkEntry(scrollable_frame_Back,width=350,border_color="black")
     back_entry_iznos.grid(column=4,row=j+1,padx=0,pady=0)
     row.append(back_entry_iznos)
     
-    back_entry_placeno_neplaceno = ctk.CTkEntry(scrollable_frame_Back,width=310)
+    back_entry_placeno_neplaceno = ctk.CTkEntry(scrollable_frame_Back,width=410,border_color="black")
     back_entry_placeno_neplaceno.grid(column=5,row=j+1,padx=0,pady=0)
     row.append(back_entry_placeno_neplaceno)
     
@@ -225,36 +223,36 @@ def middle_add_row():
                                       onvalue=1,
                                     variable=cbox_var,
                                     offvalue=0,
-                                    command=lambda kwargs=kwargs: checkbox_check(kwargs))
+                                    command=lambda kwargs=kwargs: checkbox_check(kwargs),border_color="black")
     middle_checkbox.grid(column=0,row=k+1,ipadx=0,sticky="w")
     row.append(middle_checkbox)
     
     
-    middle_entry_primatelj = ctk.CTkEntry(scrollable_frame_Middle,width=105)
+    middle_entry_primatelj = ctk.CTkEntry(scrollable_frame_Middle,width=140,border_color="black")
     middle_entry_primatelj.grid(column=1,row=k+1,ipadx=0,pady=0,sticky="w")
     row.append(middle_entry_primatelj)
 
-    middle_entry_posiljatelj = ctk.CTkEntry(scrollable_frame_Middle,width=105)
+    middle_entry_posiljatelj = ctk.CTkEntry(scrollable_frame_Middle,width=210,border_color="black")
     middle_entry_posiljatelj.grid(column=2,row=k+1,ipadx=0,pady=0)
     row.append(middle_entry_posiljatelj)
 
-    middle_entry_broj_ugovora = ctk.CTkEntry(scrollable_frame_Middle,width=145)
+    middle_entry_broj_ugovora = ctk.CTkEntry(scrollable_frame_Middle,width=220,border_color="black")
     middle_entry_broj_ugovora.grid(column=3,row=k+1,ipadx=0,pady=0)
     row.append(middle_entry_broj_ugovora)
 
-    middle_entry_iznos_potrazivanja = ctk.CTkEntry(scrollable_frame_Middle,width=195)
+    middle_entry_iznos_potrazivanja = ctk.CTkEntry(scrollable_frame_Middle,width=300,border_color="black")
     middle_entry_iznos_potrazivanja.grid(column=4,row=k+1,ipadx=0,pady=0)
     row.append(middle_entry_iznos_potrazivanja)
 
-    middle_entry_iznos_otkupa = ctk.CTkEntry(scrollable_frame_Middle,width=140)
+    middle_entry_iznos_otkupa = ctk.CTkEntry(scrollable_frame_Middle,width=270,border_color="black")
     middle_entry_iznos_otkupa.grid(column=5,row=k+1,ipadx=0,pady=0)
     row.append(middle_entry_iznos_otkupa)
 
-    middle_entry_broj_fakture = ctk.CTkEntry(scrollable_frame_Middle,width=130)
+    middle_entry_broj_fakture = ctk.CTkEntry(scrollable_frame_Middle,width=200,border_color="black")
     middle_entry_broj_fakture.grid(column=6,row=k+1,ipadx=0,pady=0)
     row.append(middle_entry_broj_fakture)
 
-    middle_entry_datum_stavljanja_na_placanje = ctk.CTkEntry(scrollable_frame_Middle,width=300)
+    middle_entry_datum_stavljanja_na_placanje = ctk.CTkEntry(scrollable_frame_Middle,width=400,border_color="black")
     middle_entry_datum_stavljanja_na_placanje.grid(column=7,row=k+1,ipadx=0,pady=0)
     row.append(middle_entry_datum_stavljanja_na_placanje)
 
@@ -293,41 +291,41 @@ def checkbox_check(kwargs):
 main_label_datum = ctk.CTkLabel(fixed_frame_main_office,
                            text="Datum",
                            font=("Arial",24))
-main_label_datum.grid(column=1,row=0,ipadx=10)
+main_label_datum.grid(column=1,row=0,ipadx=30)
 
 main_label_otkup = ctk.CTkLabel(fixed_frame_main_office,
                            text="Ugovor o otkupu",
                            font=("Arial",24))
-main_label_otkup.grid(column=2,row=0,ipadx=120)
+main_label_otkup.grid(column=2,row=0,ipadx=220)
 
-main_label_otkup = ctk.CTkLabel(fixed_frame_main_office,
+main_label_ustup = ctk.CTkLabel(fixed_frame_main_office,
                            text="Ugovor o ustupu",
                            font=("Arial",24))
-main_label_otkup.grid(column=3,row=0,ipadx=80)
+main_label_ustup.grid(column=3,row=0,ipadx=140)
 
-main_label_otkup = ctk.CTkLabel(fixed_frame_main_office,
+main_label_datumipotpis = ctk.CTkLabel(fixed_frame_main_office,
                            text="Potpis sa datumom",
                            font=("Arial",24))
-main_label_otkup.grid(column=4,row=0,ipadx=60)
+main_label_datumipotpis.grid(column=4,row=0,ipadx=140)
 #endregion
 
 #region Entry Main Office
 
 main_row = []
 
-main_entry_datum = ctk.CTkEntry(scrollable_frame_Main,width=100)
+main_entry_datum = ctk.CTkEntry(scrollable_frame_Main,width=150,border_color="black")
 main_entry_datum.grid(column=1,row=1,ipadx=0,pady=(5,0),sticky="w")
 main_row.append(main_entry_datum)
 
-main_entry_otkup = ctk.CTkEntry(scrollable_frame_Main,width=340)
+main_entry_otkup = ctk.CTkEntry(scrollable_frame_Main,width=560,border_color="black")
 main_entry_otkup.grid(column=2,row=1,ipadx=0,pady=(5,0))
 main_row.append(main_entry_otkup)
 
-main_entry_ustup = ctk.CTkEntry(scrollable_frame_Main,width=260)
+main_entry_ustup = ctk.CTkEntry(scrollable_frame_Main,width=500,border_color="black")
 main_entry_ustup.grid(column=3,row=1,ipadx=0,pady=(5,0))
 main_row.append(main_entry_ustup)
 
-main_entry_datumipotpis = ctk.CTkEntry(scrollable_frame_Main,width=310)
+main_entry_datumipotpis = ctk.CTkEntry(scrollable_frame_Main,width=500,border_color="black")
 main_entry_datumipotpis.grid(column=4,row=1,ipadx=0,pady=(5,0))
 main_row.append(main_entry_datumipotpis)
 
@@ -362,57 +360,55 @@ main_button_delete_row.grid(column=0,row=0,padx=40)
 
 
 
-
-
 #region Label Back office
 
 back_label_datum = ctk.CTkLabel(fixed_frame_back_office,
                            text="Datum dospijeca placanja",
                            font=("Arial",24))
-back_label_datum.grid(column=1,row=0,ipadx=10)
+back_label_datum.grid(column=1,row=0,ipadx=30)
 
 back_label_br_ugovora = ctk.CTkLabel(fixed_frame_back_office,
                            text="Broj ugovora",
                            font=("Arial",24))
-back_label_br_ugovora.grid(column=2,row=0,ipadx=40)
+back_label_br_ugovora.grid(column=2,row=0,ipadx=90)
 
 back_label_br_fakture = ctk.CTkLabel(fixed_frame_back_office,
                            text="Broj fakture",
                            font=("Arial",24))
-back_label_br_fakture.grid(column=3,row=0,ipadx=10)
+back_label_br_fakture.grid(column=3,row=0,ipadx=90)
 
 back_label_iznos = ctk.CTkLabel(fixed_frame_back_office,
                            text="Iznos",
                            font=("Arial",24))
-back_label_iznos.grid(column=4,row=0,ipadx=100)
+back_label_iznos.grid(column=4,row=0,ipadx=130)
 
 back_label_placeno_neplaceno = ctk.CTkLabel(fixed_frame_back_office,
                            text="Placeno/Neplaceno",
                            font=("Arial",24))
-back_label_placeno_neplaceno.grid(column=5,row=0,ipadx=30)
+back_label_placeno_neplaceno.grid(column=5,row=0,ipadx=90)
 
 #endregion
 
 #region Entry Back Office
 back_row = []
 
-back_entry_datum = ctk.CTkEntry(scrollable_frame_Back,width=300)
+back_entry_datum = ctk.CTkEntry(scrollable_frame_Back,width=350,border_color="black")
 back_entry_datum.grid(column=1,row=1,padx=0,pady=(5,0),sticky="w")
 back_row.append(back_entry_datum)
 
-back_entry_br_ugovora = ctk.CTkEntry(scrollable_frame_Back,width=170)
+back_entry_br_ugovora = ctk.CTkEntry(scrollable_frame_Back,width=300,border_color="black")
 back_entry_br_ugovora.grid(column=2,row=1,padx=0,pady=(5,0))
 back_row.append(back_entry_br_ugovora)
 
-back_entry_br_fakture = ctk.CTkEntry(scrollable_frame_Back,width=170)
+back_entry_br_fakture = ctk.CTkEntry(scrollable_frame_Back,width=300,border_color="black")
 back_entry_br_fakture.grid(column=3,row=1,padx=0,pady=(5,0))
 back_row.append(back_entry_br_fakture)
 
-back_entry_iznos = ctk.CTkEntry(scrollable_frame_Back,width=150)
+back_entry_iznos = ctk.CTkEntry(scrollable_frame_Back,width=350,border_color="black")
 back_entry_iznos.grid(column=4,row=1,padx=0,pady=(5,0))
 back_row.append(back_entry_iznos)
 
-back_entry_placeno_neplaceno = ctk.CTkEntry(scrollable_frame_Back,width=310)
+back_entry_placeno_neplaceno = ctk.CTkEntry(scrollable_frame_Back,width=410,border_color="black")
 back_entry_placeno_neplaceno.grid(column=5,row=1,padx=0,pady=(5,0))
 back_row.append(back_entry_placeno_neplaceno)
 
@@ -451,75 +447,72 @@ back_button_delete_row.grid(column=0,row=0,padx=40)
 
 
 
-
 #region Label Middle Office
 middle_label_primatelj = ctk.CTkLabel(fixed_frame_middle_office,
                            text="Primatelj",
                            font=("Arial",24))
-middle_label_primatelj.grid(column=1,row=0,padx=(0,5))
+middle_label_primatelj.grid(column=1,row=0,padx=(20,30))
 
 middle_label_posiljatelj = ctk.CTkLabel(fixed_frame_middle_office,
                            text="Posiljatelj",
                            font=("Arial",24))
-middle_label_posiljatelj.grid(column=2,row=0,ipadx=5)
+middle_label_posiljatelj.grid(column=2,row=0,ipadx=50)
 
 middle_label_broj_ugovora = ctk.CTkLabel(fixed_frame_middle_office,
                            text="Broj ugovora",
                            font=("Arial",24))
-middle_label_broj_ugovora.grid(column=3,row=0,ipadx=5)
+middle_label_broj_ugovora.grid(column=3,row=0,ipadx=50)
 
 middle_label_iznos_potrazivanja = ctk.CTkLabel(fixed_frame_middle_office,
                            text="Iznos potrazivanja",
                            font=("Arial",24))
-middle_label_iznos_potrazivanja.grid(column=4,row=0,ipadx=5)
+middle_label_iznos_potrazivanja.grid(column=4,row=0,ipadx=50)
 
 middle_label_iznos_otkupa = ctk.CTkLabel(fixed_frame_middle_office,
                            text="Iznos otkupa",
                            font=("Arial",24))
-middle_label_iznos_otkupa.grid(column=5,row=0,ipadx=5)
+middle_label_iznos_otkupa.grid(column=5,row=0,ipadx=50)
 
 middle_label_broj_fakture = ctk.CTkLabel(fixed_frame_middle_office,
                            text="Broj fakture",
                            font=("Arial",24))
-middle_label_broj_fakture.grid(column=6,row=0,ipadx=5)
+middle_label_broj_fakture.grid(column=6,row=0,ipadx=50)
 
 middle_label_datum_stavljanja_na_placanje = ctk.CTkLabel(fixed_frame_middle_office,
                                             text="Datum stavljanja na placanje",
                                             font=("Arial",24))
-middle_label_datum_stavljanja_na_placanje.grid(column=7,row=0,ipadx=5)
+middle_label_datum_stavljanja_na_placanje.grid(column=7,row=0,ipadx=50)
 #endregion
 
 #region Entry Middle Office
 
 middle_row = []
 
-middle_entry_primatelj = ctk.CTkEntry(scrollable_frame_Middle,width=105)
+middle_entry_primatelj = ctk.CTkEntry(scrollable_frame_Middle,width=140,border_color="black")
 middle_entry_primatelj.grid(column=1,row=1,sticky="w",ipady=0,padx=0,pady=0)
 middle_row.append(middle_entry_primatelj)
 
-
-middle_entry_posiljatelj = ctk.CTkEntry(scrollable_frame_Middle,width=105)
+middle_entry_posiljatelj = ctk.CTkEntry(scrollable_frame_Middle,width=210,border_color="black")
 middle_entry_posiljatelj.grid(column=2,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 middle_row.append(middle_entry_posiljatelj)
 
-middle_entry_broj_ugovora = ctk.CTkEntry(scrollable_frame_Middle,width=145)
+middle_entry_broj_ugovora = ctk.CTkEntry(scrollable_frame_Middle,width=220,border_color="black")
 middle_entry_broj_ugovora.grid(column=3,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 middle_row.append(middle_entry_broj_ugovora)
 
-
-middle_entry_iznos_potrazivanja = ctk.CTkEntry(scrollable_frame_Middle,width=195)
+middle_entry_iznos_potrazivanja = ctk.CTkEntry(scrollable_frame_Middle,width=300,border_color="black")
 middle_entry_iznos_potrazivanja.grid(column=4,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 middle_row.append(middle_entry_iznos_potrazivanja)
 
-middle_entry_iznos_otkupa = ctk.CTkEntry(scrollable_frame_Middle,width=140)
+middle_entry_iznos_otkupa = ctk.CTkEntry(scrollable_frame_Middle,width=270,border_color="black")
 middle_entry_iznos_otkupa.grid(column=5,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 middle_row.append(middle_entry_iznos_otkupa)
 
-middle_entry_broj_fakture = ctk.CTkEntry(scrollable_frame_Middle,width=130)
+middle_entry_broj_fakture = ctk.CTkEntry(scrollable_frame_Middle,width=200,border_color="black")
 middle_entry_broj_fakture.grid(column=6,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 middle_row.append(middle_entry_broj_fakture)
 
-middle_entry_datum_stavljanja_na_placanje = ctk.CTkEntry(scrollable_frame_Middle,width=300)
+middle_entry_datum_stavljanja_na_placanje = ctk.CTkEntry(scrollable_frame_Middle,width=400,border_color="black")
 middle_entry_datum_stavljanja_na_placanje.grid(column=7,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 middle_row.append(middle_entry_datum_stavljanja_na_placanje)
 
@@ -557,9 +550,10 @@ middle_button_delete_row.grid(column=0,row=0,padx=40,ipadx=0,ipady=0)
 
 
 
-#binding
+#region binding
 
 main_entry_datum.bind("<1>", pick_date)
 
+#endregion
 
 app.mainloop()
