@@ -13,9 +13,12 @@ ctk.set_appearance_mode("light")  # Modes: "System" (standard), "Dark", "Light"
 ctk.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
 app = ctk.CTk()
-app.after(0, lambda:app.state('zoomed'))
+#app.after(0, lambda:app.state('zoomed'))
 #app.resizable(height=False,width=False)
 app.title("Office")
+app.geometry("1280x1080+400+50")
+
+
 
 #region TabView
 #ovdje sam kreirao tabView
@@ -26,10 +29,12 @@ tabView.pack(pady=0, padx=0, fill="both", expand=True)
 tabView.add("Main Office")
 tabView.add("Middle Office")
 tabView.add("Back Office")
+tabView.add("Racunovodstvo1")
+tabView.add("Racunovodstvo2")
 tabView.add("Datoteka")
 
 #ovdje sam stavio da tab glavni izbornik bude prvi otvoren kada se pokrene aplikacija
-tabView.set("Back Office")
+tabView.set("Racunovodstvo2")
 #endregion
 
 #region Save i Save As buttons...
@@ -50,6 +55,14 @@ fixed_frame_middle_office.pack(pady=5,padx=5,fill="both")
 #fiksni frame Back Office
 fixed_frame_back_office = ctk.CTkFrame(tabView.tab("Back Office"),height=35)
 fixed_frame_back_office.pack(pady=5,padx=5,fill="both")
+#Fiksni frame Racunovodstvo1
+fixed_frame_racunovodstvo1 = ctk.CTkFrame(tabView.tab("Racunovodstvo1"),height=35)
+fixed_frame_racunovodstvo1.pack(pady=5,padx=5,fill="both")
+#Fiksni frame Racunovodstvo2
+fixed_frame_racunovodstvo2 = ctk.CTkFrame(tabView.tab("Racunovodstvo2"),height=35)
+fixed_frame_racunovodstvo2.pack(pady=5,padx=5,fill="both")
+
+
 #endregion
 
 #region Scrollable Frameovi
@@ -62,12 +75,20 @@ scrollable_frame_Middle.pack(pady=5, padx=5, fill="both", expand=True)
 #Back scrollable frame
 scrollable_frame_Back = ctk.CTkScrollableFrame(tabView.tab("Back Office"))
 scrollable_frame_Back.pack(pady=5, padx=5, fill="both", expand=True)
+#Scrollable frame Racunovodstvo1
+scrollable_frame_racunovodstvo1 = ctk.CTkScrollableFrame(tabView.tab("Racunovodstvo1"))
+scrollable_frame_racunovodstvo1.pack(pady=5, padx=5, fill="both", expand=True)
+#Scrollable frame Racunovodstvo2
+scrollable_frame_racunovodstvo2 = ctk.CTkScrollableFrame(tabView.tab("Racunovodstvo2"))
+scrollable_frame_racunovodstvo2.pack(pady=5, padx=5, fill="both", expand=True)
 #endregion
 
 #region Liste
 main_add_all_list = []
 middle_add_all_list = []
 back_add_all_list = []
+racunovodstvo1_add_all_list = []
+racunovodstvo2_add_all_list = []
 
 #endregion
 
@@ -75,6 +96,8 @@ back_add_all_list = []
 i = 1
 j = 1
 k = 1
+l = 1
+m = 1
 #endregion
 
 
@@ -141,7 +164,6 @@ def main_add_row():
     row.append(main_entry_datumipotpis)
 
     main_add_all_list.append(row)
-    print(main_add_all_list)
 
     i += 1
 
@@ -281,6 +303,73 @@ def checkbox_check(kwargs):
     else:
         for item in kwargs["row"]:
             item.configure(fg_color="white")
+
+def racunovodstvo1_add_row():
+    
+    global l
+    row = []
+
+    cbox_var = tkinter.IntVar()
+    kwargs = {}
+    kwargs["checked"] = cbox_var
+    kwargs["row"] = row
+    checkbox = ctk.CTkCheckBox(scrollable_frame_racunovodstvo1,
+                               onvalue=1,
+                               variable=cbox_var,
+                               offvalue=0,
+                               text=None,
+                               fg_color="#37CB56",
+                               hover_color="#176828",
+                               command=lambda kwargs=kwargs: checkbox_check(kwargs),border_color="black")
+    checkbox.grid(column=0, row=l+1, padx=0, sticky="w")
+    row.append(checkbox)
+    
+    racunovodstvo_entry_naziv_prim_plat = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=370,border_color="black")
+    racunovodstvo_entry_naziv_prim_plat.grid(column=1,row=l+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_naziv_prim_plat)
+
+    racunovodstvo_entry_naz_izda_rac = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=300,border_color="black")
+    racunovodstvo_entry_naz_izda_rac.grid(column=2,row=l+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_naz_izda_rac)
+
+    racunovodstvo_entry_uvjeti_stand_pos = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=260,border_color="black")
+    racunovodstvo_entry_uvjeti_stand_pos.grid(column=3,row=l+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_uvjeti_stand_pos)
+
+    racunovodstvo_entry_datum_otkupa = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=190,border_color="black")
+    racunovodstvo_entry_datum_otkupa.grid(column=4,row=l+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_datum_otkupa)
+
+    racunovodstvo_entry_datum_dospijeca = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=220,border_color="black")
+    racunovodstvo_entry_datum_dospijeca.grid(column=5,row=l+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_datum_dospijeca)
+
+    racunovodstvo_entry_iznos_racuna = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=180,border_color="black")
+    racunovodstvo_entry_iznos_racuna.grid(column=6,row=l+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_iznos_racuna)
+
+    racunovodstvo_entry_iznos_otkupa = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=180,border_color="black")
+    racunovodstvo_entry_iznos_otkupa.grid(column=7,row=l+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_iznos_otkupa)
+    
+    
+    racunovodstvo1_add_all_list.append(row)
+    l += 1
+    
+def racunovodstvo1_delete_row():
+    
+    global l
+    
+    if racunovodstvo1_add_all_list:
+        last_row_widgets = racunovodstvo1_add_all_list.pop()  # Remove the last row's widgets from the list
+        for widget in last_row_widgets:
+            widget.destroy()  # Destroy each widget in the row
+        l -= 1
+    else:
+        tkinter.messagebox.showinfo("Error","Nije moguće izbrisati početni red")
+    
+    
+    pass
 
 #endregion
 
@@ -531,7 +620,7 @@ middle_checkbox = ctk.CTkCheckBox(scrollable_frame_Middle,text=None,fg_color="#3
 middle_checkbox.grid(column=0,row=1,ipadx=0,ipady=0,sticky="w")
 #endregion
 
-#region gumb za dodavanje/oduzimanje Middle reda Back Office
+#region gumb za dodavanje/oduzimanje reda Middle Office
 middle_button_add_row = ctk.CTkButton(fixed_frame_middle_office,text="+",
                                width=10,
                                corner_radius=120,
@@ -545,6 +634,202 @@ middle_button_delete_row = ctk.CTkButton(fixed_frame_middle_office,text="-",
                                command=middle_delete_row)
 middle_button_delete_row.grid(column=0,row=0,padx=40,ipadx=0,ipady=0)
 #endregion
+
+
+
+#region Label Racunovodstvo1
+
+rac_label_naziv_prim_plat = ctk.CTkLabel(fixed_frame_racunovodstvo1,
+                                         text="Naziv primatelja/platitelja racuna",
+                                        font=("Arial",24))
+rac_label_naziv_prim_plat.grid(column=1,row=0,padx=(0,40))
+
+rac_label_naz_izda_rac = ctk.CTkLabel(fixed_frame_racunovodstvo1,
+                                         text="Naziv izdavatelja racuna",
+                                        font=("Arial",24))
+rac_label_naz_izda_rac.grid(column=2,row=0,padx=(0,40))
+
+rac_label_uvjeti_stand_pos = ctk.CTkLabel(fixed_frame_racunovodstvo1,
+                                         text="Uvjeti S-stand/P-pos",
+                                        font=("Arial",24))
+rac_label_uvjeti_stand_pos.grid(column=3,row=0,padx=(0,40))
+
+rac_label_datum_otkupa = ctk.CTkLabel(fixed_frame_racunovodstvo1,
+                                         text="Datum otkupa",
+                                        font=("Arial",24))
+rac_label_datum_otkupa.grid(column=4,row=0,padx=(0,40))
+
+
+rac_label_datum_dospijeca = ctk.CTkLabel(fixed_frame_racunovodstvo1,
+                                         text="Datum dospijeca",
+                                        font=("Arial",24))
+rac_label_datum_dospijeca.grid(column=5,row=0,padx=(0,40))
+
+
+rac_label_iznos_racuna = ctk.CTkLabel(fixed_frame_racunovodstvo1,
+                                         text="Iznos racuna",
+                                        font=("Arial",24))
+rac_label_iznos_racuna.grid(column=6,row=0,padx=(0,40))
+
+rac_label_iznos_otkupa = ctk.CTkLabel(fixed_frame_racunovodstvo1,
+                                         text="Iznos otkupa",
+                                        font=("Arial",24))
+rac_label_iznos_otkupa.grid(column=7,row=0,padx=(0,40))
+
+#endregion
+
+#region Entry Racunovodstvo1
+racunovodstvo_row = []
+
+racunovodstvo_entry_naziv_prim_plat = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=370,border_color="black")
+racunovodstvo_entry_naziv_prim_plat.grid(column=1,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo_row.append(racunovodstvo_entry_naziv_prim_plat)
+
+racunovodstvo_entry_naz_izda_rac = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=300,border_color="black")
+racunovodstvo_entry_naz_izda_rac.grid(column=2,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo_row.append(racunovodstvo_entry_naz_izda_rac)
+
+racunovodstvo_entry_uvjeti_stand_pos = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=260,border_color="black")
+racunovodstvo_entry_uvjeti_stand_pos.grid(column=3,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo_row.append(racunovodstvo_entry_uvjeti_stand_pos)
+
+racunovodstvo_entry_datum_otkupa = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=190,border_color="black")
+racunovodstvo_entry_datum_otkupa.grid(column=4,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo_row.append(racunovodstvo_entry_datum_otkupa)
+
+racunovodstvo_entry_datum_dospijeca = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=220,border_color="black")
+racunovodstvo_entry_datum_dospijeca.grid(column=5,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo_row.append(racunovodstvo_entry_datum_dospijeca)
+
+racunovodstvo_entry_iznos_racuna = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=180,border_color="black")
+racunovodstvo_entry_iznos_racuna.grid(column=6,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo_row.append(racunovodstvo_entry_iznos_racuna)
+
+racunovodstvo_entry_iznos_otkupa = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=180,border_color="black")
+racunovodstvo_entry_iznos_otkupa.grid(column=7,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo_row.append(racunovodstvo_entry_iznos_otkupa)
+
+#endregion
+
+#region Checkbox Racunovodstvo1
+cbox_var = tkinter.IntVar()
+kwargs = {}
+kwargs["checked"] = cbox_var
+kwargs["row"] = racunovodstvo_row
+
+racunovodstvo_checkbox = ctk.CTkCheckBox(scrollable_frame_racunovodstvo1,text=None,fg_color="#37CB56",hover_color="#176828",
+                                onvalue=1, offvalue=0,
+                                variable=cbox_var, command=lambda kwargs=kwargs: checkbox_check(kwargs))
+racunovodstvo_checkbox.grid(column=0,row=1,ipadx=0,ipady=0,sticky="w")
+#endregion
+
+#region gumb za dodavanje/oduzimanje Racunovodstvo1
+racunovodstvo1_button_add_row = ctk.CTkButton(fixed_frame_racunovodstvo1,text="+",
+                               width=10,
+                               corner_radius=120,
+                               anchor="w",
+                               command=racunovodstvo1_add_row)
+racunovodstvo1_button_add_row.grid(column=0,row=0,sticky="w",ipadx=0,ipady=0)
+
+racunovodstvo1_button_delete_row = ctk.CTkButton(fixed_frame_racunovodstvo1,text="-",
+                               width=10,
+                               corner_radius=20,
+                               command=racunovodstvo1_delete_row)
+racunovodstvo1_button_delete_row.grid(column=0,row=0,padx=40,ipadx=0,ipady=0)
+#endregion
+
+
+
+#region Label Racunoovodstvo2
+rac_label_diskont_bruto = ctk.CTkLabel(fixed_frame_racunovodstvo2,
+                                         text="%" + "diskont bruto",
+                                        font=("Arial",24))
+rac_label_diskont_bruto.grid(column=1,row=0,padx=(0,40))
+
+rac_label_diskont_netto = ctk.CTkLabel(fixed_frame_racunovodstvo2,
+                                         text="%" + "diskont netto",
+                                        font=("Arial",24))
+rac_label_diskont_netto.grid(column=2,row=0,padx=(0,40))
+
+rac_label_diskont_god_trosak = ctk.CTkLabel(fixed_frame_racunovodstvo2,
+                                         text="Godisnji trosak",
+                                        font=("Arial",24))
+rac_label_diskont_god_trosak.grid(column=3,row=0,padx=(0,40))
+
+rac_label_ex_ante = ctk.CTkLabel(fixed_frame_racunovodstvo2,
+                                         text="Ex Ante godisnji prinos za investitora",
+                                        font=("Arial",24))
+rac_label_ex_ante.grid(column=4,row=0,padx=(0,40))
+
+rac_label_razlika = ctk.CTkLabel(fixed_frame_racunovodstvo2,
+                                         text="Razlika",
+                                        font=("Arial",24))
+rac_label_razlika.grid(column=5,row=0,padx=(0,40))
+
+rac_label_prihod = ctk.CTkLabel(fixed_frame_racunovodstvo2,
+                                         text="Prihod",
+                                        font=("Arial",24))
+rac_label_prihod.grid(column=6,row=0,padx=(0,40))
+
+rac_label_pdv = ctk.CTkLabel(fixed_frame_racunovodstvo2,
+                                         text="PDV",
+                                        font=("Arial",24))
+rac_label_pdv.grid(column=7,row=0,padx=(0,40))
+
+rac_label_pdv = ctk.CTkLabel(fixed_frame_racunovodstvo2,
+                                         text="Cisti prihod",
+                                        font=("Arial",24))
+rac_label_pdv.grid(column=8,row=0,padx=(100,0))
+
+
+#endregion
+
+#region Entry Racunovodstvo2
+
+racunovodstvo2_row = []
+
+racunovodstvo_entry_diskont_bruto = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=190,border_color="black")
+racunovodstvo_entry_diskont_bruto.grid(column=1,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo2_row.append(racunovodstvo_entry_diskont_bruto)
+
+racunovodstvo_entry_diskont_netto = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=200,border_color="black")
+racunovodstvo_entry_diskont_netto.grid(column=2,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo2_row.append(racunovodstvo_entry_diskont_netto)
+
+racunovodstvo_entry_diskont_godisnji_trosak = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=200,border_color="black")
+racunovodstvo_entry_diskont_godisnji_trosak.grid(column=3,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo2_row.append(racunovodstvo_entry_diskont_godisnji_trosak)
+
+
+#endregion
+
+#region Checkbox Racunovodstvo2
+cbox_var = tkinter.IntVar()
+kwargs = {}
+kwargs["checked"] = cbox_var
+kwargs["row"] = racunovodstvo_row
+
+racunovodstvo_checkbox = ctk.CTkCheckBox(scrollable_frame_racunovodstvo2,text=None,fg_color="#37CB56",hover_color="#176828",
+                                onvalue=1, offvalue=0,
+                                variable=cbox_var, command=lambda kwargs=kwargs: checkbox_check(kwargs))
+racunovodstvo_checkbox.grid(column=0,row=1,ipadx=0,ipady=0,sticky="w")
+#endregion
+
+#region gumb za dodavanje/oduzimanje Racunovodstvo2
+racunovodstvo2_button_add_row = ctk.CTkButton(fixed_frame_racunovodstvo2,text="+",
+                               width=10,
+                               corner_radius=120,
+                               anchor="w",
+                               command=racunovodstvo1_add_row)
+racunovodstvo2_button_add_row.grid(column=0,row=0,sticky="w",ipadx=0,ipady=0)
+
+racunovodstvo2_button_delete_row = ctk.CTkButton(fixed_frame_racunovodstvo2,text="-",
+                               width=10,
+                               corner_radius=20,
+                               command=racunovodstvo1_delete_row)
+racunovodstvo2_button_delete_row.grid(column=0,row=0,padx=40,ipadx=0,ipady=0)
+#endregion
+
 
 
 
