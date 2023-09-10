@@ -800,6 +800,14 @@ racunovodstvo_entry_diskont_godisnji_trosak = ctk.CTkEntry(scrollable_frame_racu
 racunovodstvo_entry_diskont_godisnji_trosak.grid(column=3,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo2_row.append(racunovodstvo_entry_diskont_godisnji_trosak)
 
+racunovodstvo_entry_ex_ante = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=430,border_color="black")
+racunovodstvo_entry_ex_ante.grid(column=4,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo2_row.append(racunovodstvo_entry_ex_ante)
+
+racunovodstvo_entry_razlika = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=120,border_color="black")
+racunovodstvo_entry_razlika.grid(column=5,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo2_row.append(racunovodstvo_entry_razlika)
+
 
 #endregion
 
