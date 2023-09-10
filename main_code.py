@@ -31,10 +31,11 @@ tabView.add("Middle Office")
 tabView.add("Back Office")
 tabView.add("Racunovodstvo1")
 tabView.add("Racunovodstvo2")
+tabView.add("Racunovodstvo3")
 tabView.add("Datoteka")
 
 #ovdje sam stavio da tab glavni izbornik bude prvi otvoren kada se pokrene aplikacija
-tabView.set("Racunovodstvo2")
+tabView.set("Racunovodstvo3")
 #endregion
 
 #region Save i Save As buttons...
@@ -61,6 +62,9 @@ fixed_frame_racunovodstvo1.pack(pady=5,padx=5,fill="both")
 #Fiksni frame Racunovodstvo2
 fixed_frame_racunovodstvo2 = ctk.CTkFrame(tabView.tab("Racunovodstvo2"),height=35)
 fixed_frame_racunovodstvo2.pack(pady=5,padx=5,fill="both")
+#Fiskni frame Racunovodstvo3
+fixed_frame_racunovodstvo3 = ctk.CTkFrame(tabView.tab("Racunovodstvo3"),height=35)
+fixed_frame_racunovodstvo3.pack(pady=5,padx=5,fill="both")
 
 
 #endregion
@@ -81,6 +85,9 @@ scrollable_frame_racunovodstvo1.pack(pady=5, padx=5, fill="both", expand=True)
 #Scrollable frame Racunovodstvo2
 scrollable_frame_racunovodstvo2 = ctk.CTkScrollableFrame(tabView.tab("Racunovodstvo2"))
 scrollable_frame_racunovodstvo2.pack(pady=5, padx=5, fill="both", expand=True)
+#Scrollable frame Racunovodstvo3
+scrollable_frame_racunovodstvo3 = ctk.CTkScrollableFrame(tabView.tab("Racunovodstvo3"))
+scrollable_frame_racunovodstvo3.pack(pady=5, padx=5, fill="both", expand=True)
 #endregion
 
 #region Liste
@@ -89,6 +96,7 @@ middle_add_all_list = []
 back_add_all_list = []
 racunovodstvo1_add_all_list = []
 racunovodstvo2_add_all_list = []
+racunovodstvo3_add_all_list = []
 
 #endregion
 
@@ -98,6 +106,7 @@ j = 1
 k = 1
 l = 1
 m = 1
+n = 1
 #endregion
 
 
@@ -368,9 +377,126 @@ def racunovodstvo1_delete_row():
     else:
         tkinter.messagebox.showinfo("Error","Nije moguće izbrisati početni red")
     
+def racunovodstvo2_add_row():
+    
+    global m
+    row = []
+
+    cbox_var = tkinter.IntVar()
+    kwargs = {}
+    kwargs["checked"] = cbox_var
+    kwargs["row"] = row
+    checkbox = ctk.CTkCheckBox(scrollable_frame_racunovodstvo2,
+                               onvalue=1,
+                               variable=cbox_var,
+                               offvalue=0,
+                               text=None,
+                               fg_color="#37CB56",
+                               hover_color="#176828",
+                               command=lambda kwargs=kwargs: checkbox_check(kwargs),border_color="black")
+    checkbox.grid(column=0, row=m+1, padx=0, sticky="w")
+    row.append(checkbox)
+    
+    racunovodstvo_entry_diskont_bruto = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=190,border_color="black")
+    racunovodstvo_entry_diskont_bruto.grid(column=1,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_diskont_bruto)
+
+    racunovodstvo_entry_diskont_netto = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=200,border_color="black")
+    racunovodstvo_entry_diskont_netto.grid(column=2,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_diskont_netto)
+
+    racunovodstvo_entry_diskont_godisnji_trosak = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=200,border_color="black")
+    racunovodstvo_entry_diskont_godisnji_trosak.grid(column=3,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_diskont_godisnji_trosak)
+
+    racunovodstvo_entry_ex_ante = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=430,border_color="black")
+    racunovodstvo_entry_ex_ante.grid(column=4,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_ex_ante)
+
+    racunovodstvo_entry_razlika = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=120,border_color="black")
+    racunovodstvo_entry_razlika.grid(column=5,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_razlika)
+
+    racunovodstvo_entry_prihod = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=120,border_color="black")
+    racunovodstvo_entry_prihod.grid(column=6,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_prihod)
+
+    racunovodstvo_entry_pdv = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=100,border_color="black")
+    racunovodstvo_entry_pdv.grid(column=7,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_pdv)
+
+    racunovodstvo_entry_cisti_prihod = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=400,border_color="black")
+    racunovodstvo_entry_cisti_prihod.grid(column=8,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_cisti_prihod)
+    
+    racunovodstvo2_add_all_list.append(row)
+    
+    m += 1
+
+def racunovodstvo2_delete_row():
+    global m
+    
+    if racunovodstvo2_add_all_list:
+        last_row_widgets = racunovodstvo2_add_all_list.pop()  # Remove the last row's widgets from the list
+        for widget in last_row_widgets:
+            widget.destroy()  # Destroy each widget in the row
+        m -= 1
+    else:
+        tkinter.messagebox.showinfo("Error","Nije moguće izbrisati početni red")
+
+def racunovodstvo3_add_row():
+    global n
+    row = []
+
+    cbox_var = tkinter.IntVar()
+    kwargs = {}
+    kwargs["checked"] = cbox_var
+    kwargs["row"] = row
+    checkbox = ctk.CTkCheckBox(scrollable_frame_racunovodstvo3,
+                               onvalue=1,
+                               variable=cbox_var,
+                               offvalue=0,
+                               text=None,
+                               fg_color="#37CB56",
+                               hover_color="#176828",
+                               command=lambda kwargs=kwargs: checkbox_check(kwargs),border_color="black")
+    checkbox.grid(column=0, row=n+1, padx=0, sticky="w")
+    row.append(checkbox)
+    
+    racunovodstvo_entry_ex_post = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=430,border_color="black")
+    racunovodstvo_entry_ex_post.grid(column=1,row=n+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_ex_post)
+
+    racunovodstvo_entry_kasni_iza_valute = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=250,border_color="black")
+    racunovodstvo_entry_kasni_iza_valute.grid(column=2,row=n+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_kasni_iza_valute)
+
+    racunovodstvo_entry_godisnji_ako_plati_valuti = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=550,border_color="black")
+    racunovodstvo_entry_godisnji_ako_plati_valuti.grid(column=3,row=n+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_godisnji_ako_plati_valuti)
+
+    racunovodstvo_entry_stvarni_godisnji_trosak = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=460,border_color="black")
+    racunovodstvo_entry_stvarni_godisnji_trosak.grid(column=4,row=n+1,sticky="w",ipady=0,padx=0,pady=0)
+    row.append(racunovodstvo_entry_stvarni_godisnji_trosak)
+    
+    racunovodstvo3_add_all_list.append(row)
+    
+    n += 1
+    
     
     pass
 
+def racunovodstvo3_delete_row():
+    global n
+    
+    if racunovodstvo3_add_all_list:
+        last_row_widgets = racunovodstvo3_add_all_list.pop()  # Remove the last row's widgets from the list
+        for widget in last_row_widgets:
+            widget.destroy()  # Destroy each widget in the row
+        m -= 1
+    else:
+        tkinter.messagebox.showinfo("Error","Nije moguće izbrisati početni red")
+    pass    
 #endregion
 
 
@@ -774,12 +900,12 @@ rac_label_prihod.grid(column=6,row=0,padx=(0,40))
 rac_label_pdv = ctk.CTkLabel(fixed_frame_racunovodstvo2,
                                          text="PDV",
                                         font=("Arial",24))
-rac_label_pdv.grid(column=7,row=0,padx=(0,40))
+rac_label_pdv.grid(column=7,row=0,padx=(20,40))
 
-rac_label_pdv = ctk.CTkLabel(fixed_frame_racunovodstvo2,
+rac_label_cisti_prihod = ctk.CTkLabel(fixed_frame_racunovodstvo2,
                                          text="Cisti prihod",
                                         font=("Arial",24))
-rac_label_pdv.grid(column=8,row=0,padx=(100,0))
+rac_label_cisti_prihod.grid(column=8,row=0,padx=(130,0))
 
 
 #endregion
@@ -808,6 +934,20 @@ racunovodstvo_entry_razlika = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width
 racunovodstvo_entry_razlika.grid(column=5,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo2_row.append(racunovodstvo_entry_razlika)
 
+racunovodstvo_entry_prihod = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=120,border_color="black")
+racunovodstvo_entry_prihod.grid(column=6,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo2_row.append(racunovodstvo_entry_prihod)
+
+racunovodstvo_entry_pdv = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=100,border_color="black")
+racunovodstvo_entry_pdv.grid(column=7,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo2_row.append(racunovodstvo_entry_pdv)
+
+racunovodstvo_entry_cisti_prihod = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=400,border_color="black")
+racunovodstvo_entry_cisti_prihod.grid(column=8,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo2_row.append(racunovodstvo_entry_cisti_prihod)
+
+
+
 
 #endregion
 
@@ -815,7 +955,7 @@ racunovodstvo2_row.append(racunovodstvo_entry_razlika)
 cbox_var = tkinter.IntVar()
 kwargs = {}
 kwargs["checked"] = cbox_var
-kwargs["row"] = racunovodstvo_row
+kwargs["row"] = racunovodstvo2_row
 
 racunovodstvo_checkbox = ctk.CTkCheckBox(scrollable_frame_racunovodstvo2,text=None,fg_color="#37CB56",hover_color="#176828",
                                 onvalue=1, offvalue=0,
@@ -828,19 +968,95 @@ racunovodstvo2_button_add_row = ctk.CTkButton(fixed_frame_racunovodstvo2,text="+
                                width=10,
                                corner_radius=120,
                                anchor="w",
-                               command=racunovodstvo1_add_row)
+                               command=racunovodstvo2_add_row)
 racunovodstvo2_button_add_row.grid(column=0,row=0,sticky="w",ipadx=0,ipady=0)
 
 racunovodstvo2_button_delete_row = ctk.CTkButton(fixed_frame_racunovodstvo2,text="-",
                                width=10,
                                corner_radius=20,
-                               command=racunovodstvo1_delete_row)
+                               command=racunovodstvo2_delete_row)
 racunovodstvo2_button_delete_row.grid(column=0,row=0,padx=40,ipadx=0,ipady=0)
 #endregion
 
 
 
 
+
+#region Label Racunovodstvo3
+rac_label_ex_post = ctk.CTkLabel(fixed_frame_racunovodstvo3,
+                                        text="Ex post godisnji prinos za investitora",
+                                        font=("Arial",24))
+rac_label_ex_post.grid(column=1,row=0,padx=(0,80))
+
+rac_label_kasni_iza_valute = ctk.CTkLabel(fixed_frame_racunovodstvo3,
+                                        text="Kasni iza valute",
+                                        font=("Arial",24))
+rac_label_kasni_iza_valute.grid(column=2,row=0,padx=(0,80))
+
+rac_label_godisnji_ako_plati_valuti = ctk.CTkLabel(fixed_frame_racunovodstvo3,
+                                        text="Godisnji trosak financiranja ako plati u valuti",
+                                        font=("Arial",24))
+rac_label_godisnji_ako_plati_valuti.grid(column=3,row=0,padx=(0,80))
+
+rac_label_stvarni_godisnji_trosak = ctk.CTkLabel(fixed_frame_racunovodstvo3,
+                                        text="Stvarni godisnji trosak financiranja",
+                                        font=("Arial",24))
+rac_label_stvarni_godisnji_trosak.grid(column=4,row=0,padx=(0,40))
+
+
+
+
+
+#endregion
+
+#region Entry Racunovodstvo3
+racunovodstvo3_row = []
+
+racunovodstvo_entry_ex_post = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=430,border_color="black")
+racunovodstvo_entry_ex_post.grid(column=1,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo3_row.append(racunovodstvo_entry_ex_post)
+
+racunovodstvo_entry_kasni_iza_valute = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=250,border_color="black")
+racunovodstvo_entry_kasni_iza_valute.grid(column=2,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo3_row.append(racunovodstvo_entry_kasni_iza_valute)
+
+racunovodstvo_entry_godisnji_ako_plati_valuti = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=550,border_color="black")
+racunovodstvo_entry_godisnji_ako_plati_valuti.grid(column=3,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo3_row.append(racunovodstvo_entry_godisnji_ako_plati_valuti)
+
+racunovodstvo_entry_stvarni_godisnji_trosak = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=460,border_color="black")
+racunovodstvo_entry_stvarni_godisnji_trosak.grid(column=4,row=1,sticky="w",ipady=0,padx=0,pady=0)
+racunovodstvo3_row.append(racunovodstvo_entry_stvarni_godisnji_trosak)
+
+
+#endregion
+
+#region Checkbox Racunovodstvo3
+cbox_var = tkinter.IntVar()
+kwargs = {}
+kwargs["checked"] = cbox_var
+kwargs["row"] = racunovodstvo3_row
+
+racunovodstvo_checkbox = ctk.CTkCheckBox(scrollable_frame_racunovodstvo3,text=None,fg_color="#37CB56",hover_color="#176828",
+                                onvalue=1, offvalue=0,
+                                variable=cbox_var, command=lambda kwargs=kwargs: checkbox_check(kwargs))
+racunovodstvo_checkbox.grid(column=0,row=1,ipadx=0,ipady=0,sticky="w")
+#endregion
+
+#region gumb za dodavanje/oduzimanje Racunovodstvo3
+racunovodstvo3_button_add_row = ctk.CTkButton(fixed_frame_racunovodstvo3,text="+",
+                               width=10,
+                               corner_radius=120,
+                               anchor="w",
+                               command=racunovodstvo3_add_row)
+racunovodstvo3_button_add_row.grid(column=0,row=0,sticky="w",ipadx=0,ipady=0)
+
+racunovodstvo3_button_delete_row = ctk.CTkButton(fixed_frame_racunovodstvo3,text="-",
+                               width=10,
+                               corner_radius=20,
+                               command=racunovodstvo3_delete_row)
+racunovodstvo3_button_delete_row.grid(column=0,row=0,padx=40,ipadx=0,ipady=0)
+#endregion
 
 
 #region binding
