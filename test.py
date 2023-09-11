@@ -1,33 +1,67 @@
 import tkinter as tk
+from tkinter import filedialog
+import json
 
-class CustomFrame:
-    def __init__(self, parent, width, height):
-        self.width = width
-        self.height = height
-        self.frame = tk.Frame(parent, width=self.width, height=self.height, bg="lightblue")
-        self.frame.pack()
+def save_state():
+    state = {
+        "rows": [],
+    }
 
-class CustomWindow:
-    def __init__(self, width, height, title="Custom Window"):
-        self.width = width
-        self.height = height
-        self.title = title
+    for row in rows:
+        row_data = [entry.get() for entry in row]
+        state["rows"].append(row_data)
 
-        self.window = tk.Tk()
-        self.window.title(self.title)
-        self.window.geometry(f"{self.width}x{self.height}")
+    with open("app_state.json", "w") as file:
+        json.dump(state, file)
 
-        self.add_frame_button = tk.Button(self.window, text="Add Frame", command=self.add_custom_frame)
-        self.add_frame_button.pack(pady=20)
+def load_state():
+    try:
+        with open("app_state.json", "r") as file:
+            state = json.load(file)
 
-    def add_custom_frame(self):
-        custom_frame = CustomFrame(self.window, 200, 150)  # You can customize the frame's size
-        custom_frame.frame.pack()
+        for i, row_data in enumerate(state["rows"]):
+            for j, cell_data in enumerate(row_data):
+                rows[i][j].delete(0, tk.END)
+                rows[i][j].insert(0, cell_data)
 
-    def run(self):
-        self.window.mainloop()
+    except FileNotFoundError:
+        # Handle the case where the file doesn't exist (e.g., first run)
+        pass
 
-# Example usage:
-if __name__ == "__main__":
-    my_window = CustomWindow(400, 300, "My Custom Window")
-    my_window.run()
+def add_row():
+    row = []
+    for j in range(3):  # Change the number of columns as needed
+        entry = tk.Entry(root)
+        entry.grid(row=len(rows), column=j)
+        row.append(entry)
+    rows.append(row)
+
+def delete_row():
+    if rows:
+        for entry in rows[-1]:
+            entry.grid_forget()
+        rows.pop()
+
+# Create the main application window
+root = tk.Tk()
+root.title("Dynamic Table Application")
+
+# Create a 2D list to store entry widgets
+rows = []
+
+# Load the previous state if it exists
+load_state()
+
+# Create buttons for adding and deleting rows
+add_row_button = tk.Button(root, text="Add Row", command=add_row)
+add_row_button.grid(row=0, column=0)
+
+delete_row_button = tk.Button(root, text="Delete Row", command=delete_row)
+delete_row_button.grid(row=0, column=1)
+
+# Create Save button to save the current state
+save_button = tk.Button(root, text="Save State", command=save_state)
+save_button.grid(row=0, column=2)
+
+# Start the Tkinter main loop
+root.mainloop()

@@ -13,10 +13,10 @@ ctk.set_appearance_mode("light")  # Modes: "System" (standard), "Dark", "Light"
 ctk.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
 app = ctk.CTk()
-#app.after(0, lambda:app.state('zoomed'))
+app.after(0, lambda:app.state('zoomed'))
 #app.resizable(height=False,width=False)
 app.title("Office")
-app.geometry("1280x1080+400+50")
+#app.geometry("1280x1080+400+50")
 
 
 
@@ -35,21 +35,16 @@ tabView.add("Racunovodstvo3")
 tabView.add("Datoteka")
 
 #ovdje sam stavio da tab glavni izbornik bude prvi otvoren kada se pokrene aplikacija
-tabView.set("Racunovodstvo3")
+tabView.set("Main Office")
 #endregion
 
-#region Save i Save As buttons...
-save_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi",command="")
-save_button.pack(padx=450,pady=(190,5)) 
 
-save_as_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi kao...",command="")
-save_as_button.pack(padx=450,pady=(10,0))
-#endregion
 
 #region Fiksni Frameovi
 #Fiksni frame Main Office
 fixed_frame_main_office = ctk.CTkFrame(tabView.tab("Main Office"),height=35)
 fixed_frame_main_office.pack(pady=5,padx=5,fill="both")
+
 #fiksni frame Middle Office
 fixed_frame_middle_office = ctk.CTkFrame(tabView.tab("Middle Office"),height=35)
 fixed_frame_middle_office.pack(pady=5,padx=5,fill="both")
@@ -111,6 +106,30 @@ n = 1
 
 
 #region FUNKCIJE 
+
+def save_as():
+    
+    file = filedialog.asksaveasfilename(defaultextension=".*", initialdir="C:/Users/ggord/Desktop", title="Save File",filetypes=(("Text Files", "*.txt"),("Python Files","*.py"), ("All Files","*.*")))
+    if file:
+        name = file
+        name = name.replace("C:/Users/ggord/Desktop", "")
+    
+        file = open(file,"w")
+        file.write(tabView.get(1.0, END))
+        file.close()
+    pass
+
+
+def open_file():
+    
+    file = filedialog.askopenfilename(title="Otvori file", filetypes=(("Python File","*.py"),("All Files", "*.*")))
+    
+    
+    pass
+
+
+
+
 def pick_date(event):
     
     global cal, date_window
@@ -498,6 +517,21 @@ def racunovodstvo3_delete_row():
         tkinter.messagebox.showinfo("Error","Nije moguće izbrisati početni red")
     pass    
 #endregion
+
+
+
+#region Otvori, Save i Save As buttons...
+open_file_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Otvori", command=open_file)
+open_file_button.pack(padx=100,pady=(250,20)) 
+
+
+save_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi",command="")
+save_button.pack(padx=100,pady=20) 
+
+save_as_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi kao...",command=save_as)
+save_as_button.pack(padx=100,pady=20)
+#endregion
+
 
 
 
@@ -1064,5 +1098,31 @@ racunovodstvo3_button_delete_row.grid(column=0,row=0,padx=40,ipadx=0,ipady=0)
 main_entry_datum.bind("<1>", pick_date)
 
 #endregion
+
+
+
+
+
+
+
+#region Promjena scaling aplikacije
+def change_scaling_event(new_scaling: str):
+        new_scaling_float = int(new_scaling.replace("%", "")) / 100
+        ctk.set_widget_scaling(new_scaling_float)
+
+
+
+
+scaling_label = ctk.CTkLabel(tabView.tab("Datoteka"), text="UI Scaling:", anchor="w")
+scaling_label.pack()
+scaling_optionemenu = ctk.CTkOptionMenu(tabView.tab("Datoteka"), values=["80%", "90%", "100%", "110%", "120%"],
+                                                               command=change_scaling_event)
+scaling_optionemenu.pack()
+#endregion
+
+
+
+
+
 
 app.mainloop()
