@@ -16,7 +16,7 @@ app = ctk.CTk()
 app.after(0, lambda:app.state('zoomed'))
 #app.resizable(height=False,width=False)
 app.title("Office")
-#app.geometry("1280x1080+400+50")
+#app.geometry("1280x800+400+50")
 
 
 
@@ -43,8 +43,8 @@ tabView.set("Main Office")
 #region Fiksni Frameovi
 #Fiksni frame Main Office
 fixed_frame_main_office = ctk.CTkFrame(tabView.tab("Main Office"),height=35)
-fixed_frame_main_office.pack(pady=5,padx=5,fill="both")
-
+fixed_frame_main_office.pack(pady=5,padx=5,fill="both",anchor="center")
+fixed_frame_main_office.grid_rowconfigure(0,weight=1)
 #fiksni frame Middle Office
 fixed_frame_middle_office = ctk.CTkFrame(tabView.tab("Middle Office"),height=35)
 fixed_frame_middle_office.pack(pady=5,padx=5,fill="both")
@@ -60,8 +60,6 @@ fixed_frame_racunovodstvo2.pack(pady=5,padx=5,fill="both")
 #Fiskni frame Racunovodstvo3
 fixed_frame_racunovodstvo3 = ctk.CTkFrame(tabView.tab("Racunovodstvo3"),height=35)
 fixed_frame_racunovodstvo3.pack(pady=5,padx=5,fill="both")
-
-
 #endregion
 
 #region Scrollable Frameovi
@@ -106,29 +104,6 @@ n = 1
 
 
 #region FUNKCIJE 
-
-def save_as():
-    
-    file = filedialog.asksaveasfilename(defaultextension=".*", initialdir="C:/Users/ggord/Desktop", title="Save File",filetypes=(("Text Files", "*.txt"),("Python Files","*.py"), ("All Files","*.*")))
-    if file:
-        name = file
-        name = name.replace("C:/Users/ggord/Desktop", "")
-    
-        file = open(file,"w")
-        file.write(tabView.get(1.0, END))
-        file.close()
-    pass
-
-
-def open_file():
-    
-    file = filedialog.askopenfilename(title="Otvori file", filetypes=(("Python File","*.py"),("All Files", "*.*")))
-    
-    
-    pass
-
-
-
 
 def pick_date(event):
     
@@ -521,14 +496,12 @@ def racunovodstvo3_delete_row():
 
 
 #region Otvori, Save i Save As buttons...
-open_file_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Otvori", command=open_file)
-open_file_button.pack(padx=100,pady=(250,20)) 
 
 
 save_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi",command="")
 save_button.pack(padx=100,pady=20) 
 
-save_as_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi kao...",command=save_as)
+save_as_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi kao...",command="")
 save_as_button.pack(padx=100,pady=20)
 #endregion
 
@@ -1100,11 +1073,6 @@ main_entry_datum.bind("<1>", pick_date)
 #endregion
 
 
-
-
-
-
-
 #region Promjena scaling aplikacije
 def change_scaling_event(new_scaling: str):
         new_scaling_float = int(new_scaling.replace("%", "")) / 100
@@ -1115,7 +1083,7 @@ def change_scaling_event(new_scaling: str):
 
 scaling_label = ctk.CTkLabel(tabView.tab("Datoteka"), text="UI Scaling:", anchor="w")
 scaling_label.pack()
-scaling_optionemenu = ctk.CTkOptionMenu(tabView.tab("Datoteka"), values=["80%", "90%", "100%", "110%", "120%"],
+scaling_optionemenu = ctk.CTkOptionMenu(tabView.tab("Datoteka"), values=["50%","55%","60%","70%","80%", "90%", "100%", "110%", "120%"],
                                                                command=change_scaling_event)
 scaling_optionemenu.pack()
 #endregion
