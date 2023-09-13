@@ -19,7 +19,6 @@ app.title("Office")
 #app.geometry("1280x800+400+50")
 
 
-
 #region TabView
 #ovdje sam kreirao tabView
 tabView = ctk.CTkTabview(app)
@@ -91,6 +90,14 @@ racunovodstvo1_add_all_list = []
 racunovodstvo2_add_all_list = []
 racunovodstvo3_add_all_list = []
 
+
+main_all_entries_list = []
+middle_all_entries_list = []
+back_all_entries_list = []
+racunovodstvo1_all_entries_list = []
+racunovodstvo2_all_entries_list = []
+racunovodstvo3_all_entries_list = []
+
 #endregion
 
 #region Konstante
@@ -104,7 +111,7 @@ n = 1
 
 
 #region FUNKCIJE 
-
+"""
 def pick_date(event):
     
     global cal, date_window
@@ -122,7 +129,7 @@ def pick_date(event):
     submit_button.place(x=150,y=200)
     for i in range(6):
         cal._week_nbs[i].destroy()
-    
+
 def grab_date():
     main_entry_datum.delete(0, END)
     main_entry_datum.insert(0, cal.get_date())
@@ -130,7 +137,7 @@ def grab_date():
     
     
     pass
-
+"""
 def main_add_row():
     global i
     row = []
@@ -149,24 +156,32 @@ def main_add_row():
                                command=lambda kwargs=kwargs: checkbox_check(kwargs),border_color="black")
     checkbox.grid(column=0, row=i+1, padx=0, sticky="w")
     row.append(checkbox)
+    
 
     entry_datum = ctk.CTkEntry(scrollable_frame_Main, width=150,border_color="black")
     entry_datum.grid(column=1, row=i+1, padx=0, pady=0, sticky="w")
     row.append(entry_datum)
+    main_all_entries_list.append(entry_datum)
 
     main_entry_otkup = ctk.CTkEntry(scrollable_frame_Main, width=560,border_color="black")
     main_entry_otkup.grid(column=2, row=i+1, padx=0, pady=0)
     row.append(main_entry_otkup)
+    main_all_entries_list.append(main_entry_otkup)
 
     main_entry_ustup = ctk.CTkEntry(scrollable_frame_Main, width=500,border_color="black")
     main_entry_ustup.grid(column=3, row=i+1, padx=0)
     row.append(main_entry_ustup)
+    main_all_entries_list.append(main_entry_ustup)
 
     main_entry_datumipotpis = ctk.CTkEntry(scrollable_frame_Main, width=500,border_color="black")
     main_entry_datumipotpis.grid(column=4, row=i+1, padx=0, pady=0)
     row.append(main_entry_datumipotpis)
+    main_all_entries_list.append(main_entry_datumipotpis)
 
     main_add_all_list.append(row)
+    
+    
+    
 
     i += 1
 
@@ -199,25 +214,31 @@ def back_add_row():
     back_checkbox.grid(column=0,row=j+1,padx=0,sticky="w")
     row.append(back_checkbox)
     
+    
     back_entry_datum = ctk.CTkEntry(scrollable_frame_Back,width=350,border_color="black")
     back_entry_datum.grid(column=1,row=j+1,padx=0,pady=0,sticky="w")
     row.append(back_entry_datum)
-
+    back_all_entries_list.append(back_entry_datum)
+    
     back_entry_br_ugovora = ctk.CTkEntry(scrollable_frame_Back,width=300,border_color="black")
     back_entry_br_ugovora.grid(column=2,row=j+1,padx=0,pady=0)
     row.append(back_entry_br_ugovora)
+    back_all_entries_list.append(back_entry_br_ugovora)
 
     back_entry_br_fakture = ctk.CTkEntry(scrollable_frame_Back,width=300,border_color="black")
     back_entry_br_fakture.grid(column=3,row=j+1,padx=0)
     row.append(back_entry_br_fakture)
+    back_all_entries_list.append(back_entry_br_fakture)
     
     back_entry_iznos = ctk.CTkEntry(scrollable_frame_Back,width=350,border_color="black")
     back_entry_iznos.grid(column=4,row=j+1,padx=0,pady=0)
     row.append(back_entry_iznos)
+    back_all_entries_list.append(back_entry_iznos)
     
     back_entry_placeno_neplaceno = ctk.CTkEntry(scrollable_frame_Back,width=410,border_color="black")
     back_entry_placeno_neplaceno.grid(column=5,row=j+1,padx=0,pady=0)
     row.append(back_entry_placeno_neplaceno)
+    back_all_entries_list.append(back_entry_placeno_neplaceno)
     
     # Store references to the widgets of the row in a list
     
@@ -256,30 +277,37 @@ def middle_add_row():
     middle_entry_primatelj = ctk.CTkEntry(scrollable_frame_Middle,width=140,border_color="black")
     middle_entry_primatelj.grid(column=1,row=k+1,ipadx=0,pady=0,sticky="w")
     row.append(middle_entry_primatelj)
+    middle_all_entries_list.append(middle_entry_primatelj)
 
     middle_entry_posiljatelj = ctk.CTkEntry(scrollable_frame_Middle,width=210,border_color="black")
     middle_entry_posiljatelj.grid(column=2,row=k+1,ipadx=0,pady=0)
     row.append(middle_entry_posiljatelj)
+    middle_all_entries_list.append(middle_entry_posiljatelj)
 
     middle_entry_broj_ugovora = ctk.CTkEntry(scrollable_frame_Middle,width=220,border_color="black")
     middle_entry_broj_ugovora.grid(column=3,row=k+1,ipadx=0,pady=0)
     row.append(middle_entry_broj_ugovora)
+    middle_all_entries_list.append(middle_entry_broj_ugovora)
 
     middle_entry_iznos_potrazivanja = ctk.CTkEntry(scrollable_frame_Middle,width=300,border_color="black")
     middle_entry_iznos_potrazivanja.grid(column=4,row=k+1,ipadx=0,pady=0)
     row.append(middle_entry_iznos_potrazivanja)
+    middle_all_entries_list.append(middle_entry_iznos_potrazivanja)
 
     middle_entry_iznos_otkupa = ctk.CTkEntry(scrollable_frame_Middle,width=270,border_color="black")
     middle_entry_iznos_otkupa.grid(column=5,row=k+1,ipadx=0,pady=0)
     row.append(middle_entry_iznos_otkupa)
+    middle_all_entries_list.append(middle_entry_iznos_otkupa)
 
     middle_entry_broj_fakture = ctk.CTkEntry(scrollable_frame_Middle,width=200,border_color="black")
     middle_entry_broj_fakture.grid(column=6,row=k+1,ipadx=0,pady=0)
     row.append(middle_entry_broj_fakture)
+    middle_all_entries_list.append(middle_entry_broj_fakture)
 
     middle_entry_datum_stavljanja_na_placanje = ctk.CTkEntry(scrollable_frame_Middle,width=400,border_color="black")
     middle_entry_datum_stavljanja_na_placanje.grid(column=7,row=k+1,ipadx=0,pady=0)
     row.append(middle_entry_datum_stavljanja_na_placanje)
+    middle_all_entries_list.append(middle_entry_datum_stavljanja_na_placanje)
 
     middle_row_widgets = [middle_checkbox,middle_entry_primatelj,middle_entry_posiljatelj,
                         middle_entry_broj_ugovora,middle_entry_iznos_potrazivanja,
@@ -330,31 +358,37 @@ def racunovodstvo1_add_row():
     racunovodstvo_entry_naziv_prim_plat = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=370,border_color="black")
     racunovodstvo_entry_naziv_prim_plat.grid(column=1,row=l+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_naziv_prim_plat)
+    racunovodstvo1_add_all_list.append(racunovodstvo_entry_naziv_prim_plat)
 
     racunovodstvo_entry_naz_izda_rac = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=300,border_color="black")
     racunovodstvo_entry_naz_izda_rac.grid(column=2,row=l+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_naz_izda_rac)
+    racunovodstvo1_add_all_list.append(racunovodstvo_entry_naz_izda_rac)
 
     racunovodstvo_entry_uvjeti_stand_pos = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=260,border_color="black")
     racunovodstvo_entry_uvjeti_stand_pos.grid(column=3,row=l+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_uvjeti_stand_pos)
+    racunovodstvo1_add_all_list.append(racunovodstvo_entry_uvjeti_stand_pos)
 
     racunovodstvo_entry_datum_otkupa = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=190,border_color="black")
     racunovodstvo_entry_datum_otkupa.grid(column=4,row=l+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_datum_otkupa)
+    racunovodstvo1_add_all_list.append(racunovodstvo_entry_datum_otkupa)
 
     racunovodstvo_entry_datum_dospijeca = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=220,border_color="black")
     racunovodstvo_entry_datum_dospijeca.grid(column=5,row=l+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_datum_dospijeca)
+    racunovodstvo1_add_all_list.append(racunovodstvo_entry_datum_dospijeca)
 
     racunovodstvo_entry_iznos_racuna = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=180,border_color="black")
     racunovodstvo_entry_iznos_racuna.grid(column=6,row=l+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_iznos_racuna)
+    racunovodstvo1_add_all_list.append(racunovodstvo_entry_iznos_racuna)
 
     racunovodstvo_entry_iznos_otkupa = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=180,border_color="black")
     racunovodstvo_entry_iznos_otkupa.grid(column=7,row=l+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_iznos_otkupa)
-    
+    racunovodstvo1_add_all_list.append(racunovodstvo_entry_iznos_otkupa)
     
     racunovodstvo1_add_all_list.append(row)
     l += 1
@@ -394,34 +428,42 @@ def racunovodstvo2_add_row():
     racunovodstvo_entry_diskont_bruto = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=190,border_color="black")
     racunovodstvo_entry_diskont_bruto.grid(column=1,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_diskont_bruto)
+    racunovodstvo2_all_entries_list.append(racunovodstvo_entry_diskont_bruto)
 
     racunovodstvo_entry_diskont_netto = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=200,border_color="black")
     racunovodstvo_entry_diskont_netto.grid(column=2,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_diskont_netto)
+    racunovodstvo2_all_entries_list.append(racunovodstvo_entry_diskont_netto)
 
     racunovodstvo_entry_diskont_godisnji_trosak = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=200,border_color="black")
     racunovodstvo_entry_diskont_godisnji_trosak.grid(column=3,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_diskont_godisnji_trosak)
+    racunovodstvo2_all_entries_list.append(racunovodstvo_entry_diskont_godisnji_trosak)
 
     racunovodstvo_entry_ex_ante = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=430,border_color="black")
     racunovodstvo_entry_ex_ante.grid(column=4,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_ex_ante)
+    racunovodstvo2_all_entries_list.append(racunovodstvo_entry_ex_ante)
 
     racunovodstvo_entry_razlika = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=120,border_color="black")
     racunovodstvo_entry_razlika.grid(column=5,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_razlika)
+    racunovodstvo2_all_entries_list.append(racunovodstvo_entry_razlika)
 
     racunovodstvo_entry_prihod = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=120,border_color="black")
     racunovodstvo_entry_prihod.grid(column=6,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_prihod)
+    racunovodstvo2_all_entries_list.append(racunovodstvo_entry_prihod)
 
     racunovodstvo_entry_pdv = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=100,border_color="black")
     racunovodstvo_entry_pdv.grid(column=7,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_pdv)
+    racunovodstvo2_all_entries_list.append(racunovodstvo_entry_pdv)
 
     racunovodstvo_entry_cisti_prihod = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=400,border_color="black")
     racunovodstvo_entry_cisti_prihod.grid(column=8,row=m+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_cisti_prihod)
+    racunovodstvo2_all_entries_list.append(racunovodstvo_entry_cisti_prihod)
     
     racunovodstvo2_add_all_list.append(row)
     
@@ -460,18 +502,22 @@ def racunovodstvo3_add_row():
     racunovodstvo_entry_ex_post = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=430,border_color="black")
     racunovodstvo_entry_ex_post.grid(column=1,row=n+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_ex_post)
+    racunovodstvo3_all_entries_list.append(racunovodstvo_entry_ex_post)
 
     racunovodstvo_entry_kasni_iza_valute = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=250,border_color="black")
     racunovodstvo_entry_kasni_iza_valute.grid(column=2,row=n+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_kasni_iza_valute)
+    racunovodstvo3_all_entries_list.append(racunovodstvo_entry_kasni_iza_valute)
 
     racunovodstvo_entry_godisnji_ako_plati_valuti = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=550,border_color="black")
     racunovodstvo_entry_godisnji_ako_plati_valuti.grid(column=3,row=n+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_godisnji_ako_plati_valuti)
+    racunovodstvo3_all_entries_list.append(racunovodstvo_entry_godisnji_ako_plati_valuti)
 
     racunovodstvo_entry_stvarni_godisnji_trosak = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=460,border_color="black")
     racunovodstvo_entry_stvarni_godisnji_trosak.grid(column=4,row=n+1,sticky="w",ipady=0,padx=0,pady=0)
     row.append(racunovodstvo_entry_stvarni_godisnji_trosak)
+    racunovodstvo3_all_entries_list.append(racunovodstvo_entry_stvarni_godisnji_trosak)
     
     racunovodstvo3_add_all_list.append(row)
     
@@ -491,6 +537,29 @@ def racunovodstvo3_delete_row():
     else:
         tkinter.messagebox.showinfo("Error","Nije moguće izbrisati početni red")
     pass    
+
+
+def get_entries_main():
+    
+    for entry in main_all_entries_list:
+        print(entry.get())
+    print("//////////////////////////////////////////////////////////////////////////////////////////////")
+    for entry in middle_all_entries_list:
+        print(entry.get())
+    print("//////////////////////////////////////////////////////////////////////////////////////////////")
+    for entry in back_all_entries_list:
+        print(entry.get())
+    print("//////////////////////////////////////////////////////////////////////////////////////////////")
+    for entry in racunovodstvo1_all_entries_list:
+        print(entry.get())
+    print("//////////////////////////////////////////////////////////////////////////////////////////////")
+    for entry in racunovodstvo2_all_entries_list:
+        print(entry.get())
+    print("//////////////////////////////////////////////////////////////////////////////////////////////")
+    for entry in racunovodstvo3_all_entries_list:
+        print(entry.get())
+    print("//////////////////////////////////////////////////////////////////////////////////////////////")
+
 #endregion
 
 
@@ -498,7 +567,7 @@ def racunovodstvo3_delete_row():
 #region Otvori, Save i Save As buttons...
 
 
-save_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi",command="")
+save_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi",command=get_entries_main)
 save_button.pack(padx=100,pady=20) 
 
 save_as_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi kao...",command="")
@@ -538,18 +607,22 @@ main_row = []
 main_entry_datum = ctk.CTkEntry(scrollable_frame_Main,width=150,border_color="black")
 main_entry_datum.grid(column=1,row=1,ipadx=0,pady=(5,0),sticky="w")
 main_row.append(main_entry_datum)
+main_all_entries_list.append(main_entry_datum)
 
 main_entry_otkup = ctk.CTkEntry(scrollable_frame_Main,width=560,border_color="black")
 main_entry_otkup.grid(column=2,row=1,ipadx=0,pady=(5,0))
 main_row.append(main_entry_otkup)
+main_all_entries_list.append(main_entry_otkup)
 
 main_entry_ustup = ctk.CTkEntry(scrollable_frame_Main,width=500,border_color="black")
 main_entry_ustup.grid(column=3,row=1,ipadx=0,pady=(5,0))
 main_row.append(main_entry_ustup)
+main_all_entries_list.append(main_entry_ustup)
 
 main_entry_datumipotpis = ctk.CTkEntry(scrollable_frame_Main,width=500,border_color="black")
 main_entry_datumipotpis.grid(column=4,row=1,ipadx=0,pady=(5,0))
 main_row.append(main_entry_datumipotpis)
+main_all_entries_list.append(main_entry_datumipotpis)
 
 #endregion
 
@@ -617,22 +690,27 @@ back_row = []
 back_entry_datum = ctk.CTkEntry(scrollable_frame_Back,width=350,border_color="black")
 back_entry_datum.grid(column=1,row=1,padx=0,pady=(5,0),sticky="w")
 back_row.append(back_entry_datum)
+back_all_entries_list.append(back_entry_datum)
 
 back_entry_br_ugovora = ctk.CTkEntry(scrollable_frame_Back,width=300,border_color="black")
 back_entry_br_ugovora.grid(column=2,row=1,padx=0,pady=(5,0))
 back_row.append(back_entry_br_ugovora)
+back_all_entries_list.append(back_entry_br_ugovora)
 
 back_entry_br_fakture = ctk.CTkEntry(scrollable_frame_Back,width=300,border_color="black")
 back_entry_br_fakture.grid(column=3,row=1,padx=0,pady=(5,0))
 back_row.append(back_entry_br_fakture)
+back_all_entries_list.append(back_entry_br_fakture)
 
 back_entry_iznos = ctk.CTkEntry(scrollable_frame_Back,width=350,border_color="black")
 back_entry_iznos.grid(column=4,row=1,padx=0,pady=(5,0))
 back_row.append(back_entry_iznos)
+back_all_entries_list.append(back_entry_iznos)
 
 back_entry_placeno_neplaceno = ctk.CTkEntry(scrollable_frame_Back,width=410,border_color="black")
 back_entry_placeno_neplaceno.grid(column=5,row=1,padx=0,pady=(5,0))
 back_row.append(back_entry_placeno_neplaceno)
+back_all_entries_list.append(back_entry_placeno_neplaceno)
 
 
 #endregion
@@ -713,30 +791,37 @@ middle_row = []
 middle_entry_primatelj = ctk.CTkEntry(scrollable_frame_Middle,width=140,border_color="black")
 middle_entry_primatelj.grid(column=1,row=1,sticky="w",ipady=0,padx=0,pady=0)
 middle_row.append(middle_entry_primatelj)
+middle_all_entries_list.append(middle_entry_primatelj)
 
 middle_entry_posiljatelj = ctk.CTkEntry(scrollable_frame_Middle,width=210,border_color="black")
 middle_entry_posiljatelj.grid(column=2,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 middle_row.append(middle_entry_posiljatelj)
+middle_all_entries_list.append(middle_entry_posiljatelj)
 
 middle_entry_broj_ugovora = ctk.CTkEntry(scrollable_frame_Middle,width=220,border_color="black")
 middle_entry_broj_ugovora.grid(column=3,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 middle_row.append(middle_entry_broj_ugovora)
+middle_all_entries_list.append(middle_entry_broj_ugovora)
 
 middle_entry_iznos_potrazivanja = ctk.CTkEntry(scrollable_frame_Middle,width=300,border_color="black")
 middle_entry_iznos_potrazivanja.grid(column=4,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 middle_row.append(middle_entry_iznos_potrazivanja)
+middle_all_entries_list.append(middle_entry_iznos_potrazivanja)
 
 middle_entry_iznos_otkupa = ctk.CTkEntry(scrollable_frame_Middle,width=270,border_color="black")
 middle_entry_iznos_otkupa.grid(column=5,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 middle_row.append(middle_entry_iznos_otkupa)
+middle_all_entries_list.append(middle_entry_iznos_otkupa)
 
 middle_entry_broj_fakture = ctk.CTkEntry(scrollable_frame_Middle,width=200,border_color="black")
 middle_entry_broj_fakture.grid(column=6,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 middle_row.append(middle_entry_broj_fakture)
+middle_all_entries_list.append(middle_entry_broj_fakture)
 
 middle_entry_datum_stavljanja_na_placanje = ctk.CTkEntry(scrollable_frame_Middle,width=400,border_color="black")
 middle_entry_datum_stavljanja_na_placanje.grid(column=7,row=1,ipadx=0,ipady=0,padx=0,pady=0)
 middle_row.append(middle_entry_datum_stavljanja_na_placanje)
+middle_all_entries_list.append(middle_entry_datum_stavljanja_na_placanje)
 
 
 #endregion
@@ -817,30 +902,37 @@ racunovodstvo_row = []
 racunovodstvo_entry_naziv_prim_plat = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=370,border_color="black")
 racunovodstvo_entry_naziv_prim_plat.grid(column=1,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo_row.append(racunovodstvo_entry_naziv_prim_plat)
+racunovodstvo1_all_entries_list.append(racunovodstvo_entry_naziv_prim_plat)
 
 racunovodstvo_entry_naz_izda_rac = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=300,border_color="black")
 racunovodstvo_entry_naz_izda_rac.grid(column=2,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo_row.append(racunovodstvo_entry_naz_izda_rac)
+racunovodstvo1_all_entries_list.append(racunovodstvo_entry_naz_izda_rac)
 
 racunovodstvo_entry_uvjeti_stand_pos = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=260,border_color="black")
 racunovodstvo_entry_uvjeti_stand_pos.grid(column=3,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo_row.append(racunovodstvo_entry_uvjeti_stand_pos)
+racunovodstvo1_all_entries_list.append(racunovodstvo_entry_uvjeti_stand_pos)
 
 racunovodstvo_entry_datum_otkupa = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=190,border_color="black")
 racunovodstvo_entry_datum_otkupa.grid(column=4,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo_row.append(racunovodstvo_entry_datum_otkupa)
+racunovodstvo1_all_entries_list.append(racunovodstvo_entry_datum_otkupa)
 
 racunovodstvo_entry_datum_dospijeca = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=220,border_color="black")
 racunovodstvo_entry_datum_dospijeca.grid(column=5,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo_row.append(racunovodstvo_entry_datum_dospijeca)
+racunovodstvo1_all_entries_list.append(racunovodstvo_entry_datum_dospijeca)
 
 racunovodstvo_entry_iznos_racuna = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=180,border_color="black")
 racunovodstvo_entry_iznos_racuna.grid(column=6,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo_row.append(racunovodstvo_entry_iznos_racuna)
+racunovodstvo1_all_entries_list.append(racunovodstvo_entry_iznos_racuna)
 
 racunovodstvo_entry_iznos_otkupa = ctk.CTkEntry(scrollable_frame_racunovodstvo1,width=180,border_color="black")
 racunovodstvo_entry_iznos_otkupa.grid(column=7,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo_row.append(racunovodstvo_entry_iznos_otkupa)
+racunovodstvo1_all_entries_list.append(racunovodstvo_entry_iznos_otkupa)
 
 #endregion
 
@@ -924,34 +1016,42 @@ racunovodstvo2_row = []
 racunovodstvo_entry_diskont_bruto = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=190,border_color="black")
 racunovodstvo_entry_diskont_bruto.grid(column=1,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo2_row.append(racunovodstvo_entry_diskont_bruto)
+racunovodstvo2_all_entries_list.append(racunovodstvo_entry_diskont_bruto)
 
 racunovodstvo_entry_diskont_netto = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=200,border_color="black")
 racunovodstvo_entry_diskont_netto.grid(column=2,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo2_row.append(racunovodstvo_entry_diskont_netto)
+racunovodstvo2_all_entries_list.append(racunovodstvo_entry_diskont_netto)
 
 racunovodstvo_entry_diskont_godisnji_trosak = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=200,border_color="black")
 racunovodstvo_entry_diskont_godisnji_trosak.grid(column=3,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo2_row.append(racunovodstvo_entry_diskont_godisnji_trosak)
+racunovodstvo2_all_entries_list.append(racunovodstvo_entry_diskont_godisnji_trosak)
 
 racunovodstvo_entry_ex_ante = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=430,border_color="black")
 racunovodstvo_entry_ex_ante.grid(column=4,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo2_row.append(racunovodstvo_entry_ex_ante)
+racunovodstvo2_all_entries_list.append(racunovodstvo_entry_ex_ante)
 
 racunovodstvo_entry_razlika = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=120,border_color="black")
 racunovodstvo_entry_razlika.grid(column=5,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo2_row.append(racunovodstvo_entry_razlika)
+racunovodstvo2_all_entries_list.append(racunovodstvo_entry_razlika)
 
 racunovodstvo_entry_prihod = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=120,border_color="black")
 racunovodstvo_entry_prihod.grid(column=6,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo2_row.append(racunovodstvo_entry_prihod)
+racunovodstvo2_all_entries_list.append(racunovodstvo_entry_prihod)
 
 racunovodstvo_entry_pdv = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=100,border_color="black")
 racunovodstvo_entry_pdv.grid(column=7,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo2_row.append(racunovodstvo_entry_pdv)
+racunovodstvo2_all_entries_list.append(racunovodstvo_entry_pdv)
 
 racunovodstvo_entry_cisti_prihod = ctk.CTkEntry(scrollable_frame_racunovodstvo2,width=400,border_color="black")
 racunovodstvo_entry_cisti_prihod.grid(column=8,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo2_row.append(racunovodstvo_entry_cisti_prihod)
+racunovodstvo2_all_entries_list.append(racunovodstvo_entry_cisti_prihod)
 
 
 
@@ -1022,18 +1122,22 @@ racunovodstvo3_row = []
 racunovodstvo_entry_ex_post = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=430,border_color="black")
 racunovodstvo_entry_ex_post.grid(column=1,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo3_row.append(racunovodstvo_entry_ex_post)
+racunovodstvo3_all_entries_list.append(racunovodstvo_entry_ex_post)
 
 racunovodstvo_entry_kasni_iza_valute = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=250,border_color="black")
 racunovodstvo_entry_kasni_iza_valute.grid(column=2,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo3_row.append(racunovodstvo_entry_kasni_iza_valute)
+racunovodstvo3_all_entries_list.append(racunovodstvo_entry_kasni_iza_valute)
 
 racunovodstvo_entry_godisnji_ako_plati_valuti = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=550,border_color="black")
 racunovodstvo_entry_godisnji_ako_plati_valuti.grid(column=3,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo3_row.append(racunovodstvo_entry_godisnji_ako_plati_valuti)
+racunovodstvo3_all_entries_list.append(racunovodstvo_entry_godisnji_ako_plati_valuti)
 
 racunovodstvo_entry_stvarni_godisnji_trosak = ctk.CTkEntry(scrollable_frame_racunovodstvo3,width=460,border_color="black")
 racunovodstvo_entry_stvarni_godisnji_trosak.grid(column=4,row=1,sticky="w",ipady=0,padx=0,pady=0)
 racunovodstvo3_row.append(racunovodstvo_entry_stvarni_godisnji_trosak)
+racunovodstvo3_all_entries_list.append(racunovodstvo_entry_stvarni_godisnji_trosak)
 
 
 #endregion
@@ -1065,13 +1169,13 @@ racunovodstvo3_button_delete_row = ctk.CTkButton(fixed_frame_racunovodstvo3,text
 racunovodstvo3_button_delete_row.grid(column=0,row=0,padx=40,ipadx=0,ipady=0)
 #endregion
 
-
+"""
 #region binding
 
 main_entry_datum.bind("<1>", pick_date)
 
 #endregion
-
+"""
 
 #region Promjena scaling aplikacije
 def change_scaling_event(new_scaling: str):
