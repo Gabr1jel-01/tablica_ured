@@ -1,11 +1,11 @@
 import tkinter as tk
 from time import *
 import customtkinter as ctk
-import time 
 import tkinter.messagebox
-import configparser
-from tkinter import END, filedialog
+from tkinter import END
 from tkcalendar import *
+import os, json
+
 
 
 
@@ -147,7 +147,7 @@ def main_add_row():
     kwargs["checked"] = cbox_var
     kwargs["row"] = row
     checkbox = ctk.CTkCheckBox(scrollable_frame_Main,
-                               onvalue=1,
+                               onvalue=1,                        
                                variable=cbox_var,
                                offvalue=0,
                                text=None,
@@ -539,11 +539,42 @@ def racunovodstvo3_delete_row():
     pass    
 
 
-def get_entries_main():
-    
+def save_entries_main():
+    loop_data_list = []
+    main_entry_counter = 1
     for entry in main_all_entries_list:
-        print(entry.get())
+    
+        
+           
+        data1 = {
+            f"entry{main_entry_counter}": entry.get()
+            }
+        print(data1)
+        loop_data_list.append(data1)
+        
+        main_entry_counter += 1
+    with open("user_entry_data.json", "w") as file:
+            json.dump(loop_data_list, file)
+
+def load_entries_main():
+    # Check if the JSON file exists
+    if not os.path.exists("user_entry_data.json"):
+        return  # Return if the file doesn't exist
+
+    with open("user_entry_data.json", "r") as file:
+        entry_data_list = json.load(file)
+
+    main_entry_counter = 1
+    for entry_data in entry_data_list:
+        entry_key = f"entry{main_entry_counter}"
+        if entry_key in entry_data:
+            main_all_entries_list[main_entry_counter - 1].insert(0, entry_data[entry_key])
+        main_entry_counter += 1
+        
+    
+        
     print("//////////////////////////////////////////////////////////////////////////////////////////////")
+    
     for entry in middle_all_entries_list:
         print(entry.get())
     print("//////////////////////////////////////////////////////////////////////////////////////////////")
@@ -567,7 +598,7 @@ def get_entries_main():
 #region Otvori, Save i Save As buttons...
 
 
-save_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi",command=get_entries_main)
+save_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi",command=save_entries_main)
 save_button.pack(padx=100,pady=20) 
 
 save_as_button = ctk.CTkButton(tabView.tab("Datoteka"), text="Spremi kao...",command="")
@@ -1195,6 +1226,6 @@ scaling_optionemenu.pack()
 
 
 
-
+load_entries_main()
 
 app.mainloop()
